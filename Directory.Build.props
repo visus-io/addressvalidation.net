@@ -1,0 +1,20 @@
+<Project>
+    <PropertyGroup>
+        <Version>0.0.1</Version>
+        <Authors>Alan Brault</Authors>
+        <Copyright>Copyright 2024 Alan Brault. All Rights Reserved</Copyright>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
+        <RepositoryUrl>https://gitlab.com/xaevik/addressvalidation.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://gitlab.com/xaevik/addressvalidation</PackageProjectUrl>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(CI)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <RestoreLockedMode>true</RestoreLockedMode>
+    </PropertyGroup>
+</Project>

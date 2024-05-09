@@ -1,0 +1,11 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+        <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
+        <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="$(ILLinkPackVersion)" />
+    </ItemGroup>    
+</Project>
