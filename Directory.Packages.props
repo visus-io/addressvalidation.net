@@ -1,11 +1,16 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-        <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
-        <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="$(ILLinkPackVersion)" />
-    </ItemGroup>    
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="FluentValidation" Version="11.9.1" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="8.0.4" />
+    <PackageVersion Include="Refit" Version="7.0.0" />
+    <PackageVersion Include="Refit.HttpClientFactory" Version="7.0.0" />
+  </ItemGroup>
 </Project>

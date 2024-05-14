@@ -1,20 +1,47 @@
 <Project>
     <PropertyGroup>
-        <Version>0.0.1</Version>
         <Authors>Alan Brault</Authors>
         <Copyright>Copyright 2024 Alan Brault. All Rights Reserved</Copyright>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <IsTrimmable>false</IsTrimmable>
         <LangVersion>12</LangVersion>
-        <RepositoryUrl>https://gitlab.com/xaevik/addressvalidation.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://gitlab.com/xaevik/addressvalidation</PackageProjectUrl>
         <NeutralLanguage>en-US</NeutralLanguage>
+        <Nullable>enable</Nullable>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <Version>0.0.1</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType>embedded</DebugType>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://gitlab.com/xaevik/addressvalidation</PackageProjectUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://gitlab.com/xaevik/addressvalidation.git</RepositoryUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(CI)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <RestoreLockedMode>true</RestoreLockedMode>
     </PropertyGroup>
+
+    <PropertyGroup Condition="($(MSBuildProjectName.Contains('.Tests')))">
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup Condition="($(MSBuildProjectName.Contains('.Tests')))">
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="!($(MSBuildProjectName.Contains('.Tests')))">
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

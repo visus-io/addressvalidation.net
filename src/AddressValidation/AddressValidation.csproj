@@ -2,11 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsTrimmable>true</IsTrimmable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AddressValidation.Abstractions\AddressValidation.Abstractions.csproj" />
+        <PackageReference Include="FluentValidation"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

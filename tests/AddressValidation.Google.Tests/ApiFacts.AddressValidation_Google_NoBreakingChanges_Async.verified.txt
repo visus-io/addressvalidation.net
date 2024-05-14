@@ -1,0 +1,34 @@
+﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("AddressValidation.Google.Tests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
+namespace AddressValidation.Google.Abstractions
+{
+    public interface IAddressValidationClient
+    {
+        [Refit.Post("/v1:validateAddress")]
+        System.Threading.Tasks.Task<Refit.ApiResponse<AddressValidation.Abstractions.IAddressValidationResponse>> ValidateAddressAsync([Refit.Body(true)] AddressValidation.Google.Http.AddressValidationRequest request, System.Threading.CancellationToken cancellationToken = default);
+    }
+}
+namespace AddressValidation.Google.Extensions
+{
+    public static class ServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddGoogleAddressValidationHttpClient(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+    }
+}
+namespace AddressValidation.Google.Http
+{
+    public sealed class AddressValidationRequest : AddressValidation.Abstractions.AddressValidationRequestBase
+    {
+        public AddressValidationRequest() { }
+        public bool EnableUspsCass { get; }
+    }
+}
+namespace AddressValidation.Google.Services
+{
+    public sealed class AddressValidationService : AddressValidation.Abstractions.IAddressValidationService<AddressValidation.Google.Http.AddressValidationRequest>
+    {
+        public AddressValidationService(AddressValidation.Google.Abstractions.IAddressValidationClient client, Microsoft.Extensions.Logging.ILogger<AddressValidation.Google.Services.AddressValidationService> logger, FluentValidation.IValidator<AddressValidation.Google.Http.AddressValidationRequest> validator) { }
+        public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(AddressValidation.Google.Http.AddressValidationRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}
