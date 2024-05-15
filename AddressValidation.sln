@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Unit Tests", "03. Unit Tests", "{6D41E71C-E6E0-4BE8-934C-6E6E88C3F8C7}"
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Packages.props = tests\Directory.Packages.props
+		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Tests", "tests\AddressValidation.Tests\AddressValidation.Tests.csproj", "{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}"

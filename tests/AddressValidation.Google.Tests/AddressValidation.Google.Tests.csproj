@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
@@ -22,13 +21,13 @@
         <PackageReference Include="xunit"/>
         <PackageReference Include="xunit.runner.visualstudio"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Using Include="Xunit"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\..\src\AddressValidation.Google\AddressValidation.Google.csproj" />
+        <ProjectReference Include="..\..\src\AddressValidation.Google\AddressValidation.Google.csproj"/>
     </ItemGroup>
 
 </Project>

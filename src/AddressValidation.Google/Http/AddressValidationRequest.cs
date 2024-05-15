@@ -1,9 +1,12 @@
 namespace AddressValidation.Google.Http;
 
+using System.Text.Json.Serialization;
 using AddressValidation.Abstractions;
+using Serialization.Json;
 
 /// <inheritdoc />
-public sealed class AddressValidationRequest : AddressValidationRequestBase
+[JsonConverter(typeof(AddressValidationRequestConverter))]
+public sealed class AddressValidationRequest : AddressValidationAbstractRequest
 {
 	private readonly HashSet<CountryCode> _cassEnabledCountries =
 	[
@@ -14,6 +17,6 @@ public sealed class AddressValidationRequest : AddressValidationRequestBase
 	/// <summary>
 	///     Gets if USPS CASS processing is supported
 	/// </summary>
-	/// <remarks>Currently, USPS CASS is only supported for <see cref="CountryCode.US"/> and <see cref="CountryCode.PR"/>.</remarks>
+	/// <remarks>Currently, USPS CASS is only supported for <see cref="CountryCode.US" /> and <see cref="CountryCode.PR" />.</remarks>
 	public bool EnableUspsCass => Country is not null && _cassEnabledCountries.Contains(Country.Value);
 }

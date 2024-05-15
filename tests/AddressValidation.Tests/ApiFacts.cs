@@ -12,7 +12,7 @@ public sealed class ApiFacts
 	[MethodImpl(MethodImplOptions.NoInlining)]
 	public async Task AddressValidation_NoBreakingChanges_Async()
 	{
-		var api = typeof(IAddressValidationRequest).Assembly.GeneratePublicApi(new ApiGeneratorOptions()
+		var api = typeof(IAddressValidationRequest).Assembly.GeneratePublicApi(new ApiGeneratorOptions
 		{
 			ExcludeAttributes = ["System.Runtime.Versioning.TargetFrameworkAttribute", "System.Reflection.AssemblyMetadataAttribute"]
 		});

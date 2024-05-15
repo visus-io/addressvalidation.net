@@ -1,7 +1,9 @@
 namespace AddressValidation.Abstractions;
 
+using System.Text.Json.Serialization;
+
 /// <inheritdoc />
-public abstract class AddressValidationRequestBase : IAddressValidationRequest
+public abstract class AddressValidationAbstractRequest : IAddressValidationRequest
 {
 	private CountryCode? _country;
 
@@ -16,6 +18,7 @@ public abstract class AddressValidationRequestBase : IAddressValidationRequest
 	public string? CityOrTown { get; set; }
 
 	/// <inheritdoc />
+	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public CountryCode? Country
 	{
 		get => _country;
@@ -31,11 +34,6 @@ public abstract class AddressValidationRequestBase : IAddressValidationRequest
 			if ( AddressGlobals.CityStates.Contains(value.Value) )
 			{
 				StateOrProvince = null;
-			}
-
-			if ( AddressGlobals.NoPostalCodeCountries.Contains(value.Value) )
-			{
-				PostalCode = null;
 			}
 		}
 	}
@@ -55,9 +53,7 @@ public abstract class AddressValidationRequestBase : IAddressValidationRequest
 				return;
 			}
 
-			_postalCode = AddressGlobals.NoPostalCodeCountries.Contains(_country.Value)
-							  ? null
-							  : value;
+			_postalCode = value;
 		}
 	}
 

@@ -3,15 +3,21 @@
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace AddressValidation.Abstractions
 {
-    public abstract class AddressValidationRequestBase : AddressValidation.Abstractions.IAddressValidationRequest
+    public abstract class AddressValidationAbstractRequest : AddressValidation.Abstractions.IAddressValidationRequest
     {
-        protected AddressValidationRequestBase() { }
+        protected AddressValidationAbstractRequest() { }
         public System.Collections.Generic.ISet<string> AddressLines { get; }
         public string? CityOrTown { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter?))]
         public AddressValidation.Abstractions.CountryCode? Country { get; set; }
         public bool? IsResidential { get; set; }
         public string? PostalCode { get; set; }
         public string? StateOrProvince { get; set; }
+    }
+    public abstract class AddressValidationRequestAbstractValidator<T> : FluentValidation.AbstractValidator<T>
+        where T : AddressValidation.Abstractions.IAddressValidationRequest
+    {
+        protected AddressValidationRequestAbstractValidator() { }
     }
     public enum CountryCode
     {
@@ -548,12 +554,5 @@ namespace AddressValidation.Http
     {
         public BearerTokenDelegateHandler(AddressValidation.Abstractions.IAuthenticationService authenticationService) { }
         protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
-    }
-}
-namespace AddressValidation.Validations
-{
-    public sealed class AddressValidationRequestValidator : FluentValidation.AbstractValidator<AddressValidation.Abstractions.IAddressValidationRequest>
-    {
-        public AddressValidationRequestValidator() { }
     }
 }

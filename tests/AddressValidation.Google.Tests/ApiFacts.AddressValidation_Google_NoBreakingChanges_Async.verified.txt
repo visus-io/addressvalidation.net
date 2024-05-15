@@ -1,14 +1,6 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("AddressValidation.Google.Tests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
-namespace AddressValidation.Google.Abstractions
-{
-    public interface IAddressValidationClient
-    {
-        [Refit.Post("/v1:validateAddress")]
-        System.Threading.Tasks.Task<Refit.ApiResponse<AddressValidation.Abstractions.IAddressValidationResponse>> ValidateAddressAsync([Refit.Body(true)] AddressValidation.Google.Http.AddressValidationRequest request, System.Threading.CancellationToken cancellationToken = default);
-    }
-}
 namespace AddressValidation.Google.Extensions
 {
     public static class ServiceCollectionExtensions
@@ -18,17 +10,26 @@ namespace AddressValidation.Google.Extensions
 }
 namespace AddressValidation.Google.Http
 {
-    public sealed class AddressValidationRequest : AddressValidation.Abstractions.AddressValidationRequestBase
+    [System.Text.Json.Serialization.JsonConverter(typeof(AddressValidation.Google.Serialization.Json.AddressValidationRequestConverter))]
+    public sealed class AddressValidationRequest : AddressValidation.Abstractions.AddressValidationAbstractRequest
     {
         public AddressValidationRequest() { }
         public bool EnableUspsCass { get; }
     }
 }
-namespace AddressValidation.Google.Services
+namespace AddressValidation.Google.Serialization.Json
 {
-    public sealed class AddressValidationService : AddressValidation.Abstractions.IAddressValidationService<AddressValidation.Google.Http.AddressValidationRequest>
+    public sealed class AddressValidationRequestConverter : System.Text.Json.Serialization.JsonConverter<AddressValidation.Google.Http.AddressValidationRequest?>
     {
-        public AddressValidationService(AddressValidation.Google.Abstractions.IAddressValidationClient client, Microsoft.Extensions.Logging.ILogger<AddressValidation.Google.Services.AddressValidationService> logger, FluentValidation.IValidator<AddressValidation.Google.Http.AddressValidationRequest> validator) { }
-        public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(AddressValidation.Google.Http.AddressValidationRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+        public AddressValidationRequestConverter() { }
+        public override AddressValidation.Google.Http.AddressValidationRequest? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) { }
+        public override void Write(System.Text.Json.Utf8JsonWriter writer, AddressValidation.Google.Http.AddressValidationRequest? value, System.Text.Json.JsonSerializerOptions options) { }
+    }
+}
+namespace AddressValidation.Google.Validation
+{
+    public class AddressValidationRequestValidator : AddressValidation.Abstractions.AddressValidationRequestAbstractValidator<AddressValidation.Google.Http.AddressValidationRequest>
+    {
+        public AddressValidationRequestValidator() { }
     }
 }

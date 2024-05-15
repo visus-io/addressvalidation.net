@@ -4,8 +4,8 @@ using AddressValidation.Abstractions;
 using Http;
 using Refit;
 
-public interface IAddressValidationClient
+internal interface IAddressValidationClient
 {
 	[Post("/v1:validateAddress")]
-	Task<ApiResponse<IAddressValidationResponse>> ValidateAddressAsync([Body(true)] AddressValidationRequest request, CancellationToken cancellationToken = default);
+	Task<ApiResponse<IAddressValidationResponse>> ValidateAddressAsync([Body(true)] AddressValidationRequest abstractRequest, CancellationToken cancellationToken = default);
 }

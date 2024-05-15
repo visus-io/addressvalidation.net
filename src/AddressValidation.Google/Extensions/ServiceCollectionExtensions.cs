@@ -3,13 +3,14 @@ namespace AddressValidation.Google.Extensions;
 using System.Diagnostics.CodeAnalysis;
 using Abstractions;
 using AddressValidation.Abstractions;
-using AddressValidation.Http;
+using FluentValidation;
 using Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
 using Refit;
+using Validation;
 
 public static class ServiceCollectionExtensions
 {
@@ -23,8 +24,10 @@ public static class ServiceCollectionExtensions
 	{
 		ArgumentNullException.ThrowIfNull(services);
 
+		services.AddScoped<IValidator<AddressValidationRequest>, AddressValidationRequestValidator>();
+
 		services.AddSingleton<ApiKeyDelegateHandler>();
-		
+
 		services.AddTransient<IAddressValidationRequest, AddressValidationRequest>();
 
 		services.AddHttpClient(GoogleAddressValidationApi,

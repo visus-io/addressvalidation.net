@@ -1,7 +1,5 @@
 namespace AddressValidation.Abstractions;
 
-using AddressValidation.Validations;
-
 /// <summary>
 ///     Represents a uniformed address validation request.
 /// </summary>
@@ -32,12 +30,18 @@ public interface IAddressValidationRequest
 	/// <summary>
 	///     Gets or sets the Zip (Postal) Code
 	/// </summary>
-	/// <remarks>Value will be dropped for countries that have no concept of a postal code. See <see cref="AddressValidationRequestValidator"/> for details.</remarks>
+	/// <remarks>
+	///     Value will be dropped for countries that have no concept of a postal code. See
+	///     <see cref="AddressValidationRequestAbstractValidator{T}" /> for details.
+	/// </remarks>
 	public string? PostalCode { get; set; }
 
 	/// <summary>
 	///     Gets or sets the State (Province)
 	/// </summary>
-	/// <remarks>Value will be dropped for countries that are considered city-states. See <see cref="AddressValidationRequestValidator"/> for details.</remarks>
+	/// <remarks>
+	///     Value will be dropped for countries that are considered city-states. See
+	///     <see cref="AddressValidationRequestAbstractValidator{T}" /> for details.
+	/// </remarks>
 	public string? StateOrProvince { get; set; }
 }

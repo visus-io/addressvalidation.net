@@ -9,7 +9,7 @@ using Http;
 using Microsoft.Extensions.Logging;
 using Refit;
 
-public sealed class AddressValidationService(
+internal sealed class AddressValidationService(
 	IAddressValidationClient client,
 	ILogger<AddressValidationService> logger,
 	IValidator<AddressValidationRequest> validator) : IAddressValidationService<AddressValidationRequest>
@@ -21,18 +21,18 @@ public sealed class AddressValidationService(
 	private readonly IValidator<AddressValidationRequest> _validator = validator ?? throw new ArgumentNullException(nameof(validator));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public ValueTask<IAddressValidationResponse?> ValidateAsync(AddressValidationRequest request, CancellationToken cancellationToken = default)
+	public ValueTask<IAddressValidationResponse?> ValidateAsync(AddressValidationRequest abstractRequest, CancellationToken cancellationToken = default)
 	{
-		ArgumentNullException.ThrowIfNull(request);
-		return ValidateInternalAsync(request, cancellationToken);
+		ArgumentNullException.ThrowIfNull(abstractRequest);
+		return ValidateInternalAsync(abstractRequest, cancellationToken);
 	}
 
-	private async ValueTask<IAddressValidationResponse?> ValidateInternalAsync(AddressValidationRequest request, CancellationToken cancellationToken)
+	private async ValueTask<IAddressValidationResponse?> ValidateInternalAsync(AddressValidationRequest abstractRequest, CancellationToken cancellationToken)
 	{
-		ValidationResult? validationResult = await _validator.ValidateAsync(request, cancellationToken);
+		ValidationResult? validationResult = await _validator.ValidateAsync(abstractRequest, cancellationToken);
 		if ( !validationResult.IsValid )
 		{
-			foreach ( ValidationFailure error in validationResult.Errors.Where(w => w is not null) )
+			foreach ( ValidationFailure? error in validationResult.Errors.Where(w => w is not null) )
 			{
 				_logger.LogError("{code}: {message}", error.ErrorCode, error.ErrorMessage);
 			}
@@ -40,7 +40,7 @@ public sealed class AddressValidationService(
 			return null;
 		}
 
-		ApiResponse<IAddressValidationResponse> response = await _client.ValidateAddressAsync(request, cancellationToken);
+		ApiResponse<IAddressValidationResponse> response = await _client.ValidateAddressAsync(abstractRequest, cancellationToken);
 
 		return !response.IsSuccessStatusCode
 				   ? null
