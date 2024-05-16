@@ -11,11 +11,13 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="JunitXml.TestLogger" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="Moq"/>
         <PackageReference Include="PublicApiGenerator"/>
         <PackageReference Include="Verify.Xunit"/>
         <PackageReference Include="xunit"/>
