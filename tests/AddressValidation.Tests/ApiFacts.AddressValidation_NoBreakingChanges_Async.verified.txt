@@ -534,9 +534,11 @@ namespace AddressValidation.Abstractions
         System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; }
         string? CityOrTown { get; }
         AddressValidation.Abstractions.CountryCode? CountryCode { get; }
-        bool? IsResdential { get; }
+        System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
+        bool? IsResidential { get; }
         string? PostalCode { get; }
         string? StateOrProvince { get; }
+        System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }
     }
     public interface IAddressValidationService<in TRequest>
         where in TRequest : AddressValidation.Abstractions.IAddressValidationRequest
