@@ -28,7 +28,7 @@ public sealed class AddressValidationRequestAbstractValidatorFacts
 	}
 
 	[Fact]
-	public void AddressValidationRequestValidator_Country_NotSupported()
+	public void AddressValidationRequestValidator_Unsupported_Country()
 	{
 		// U.S Embassy in Zimbabwe
 		var request = new TestAddressValidationRequest
