@@ -12,6 +12,8 @@ build-job:
   
 unit-test-job:
   stage: test
+  script:
+    - echo "placeholder"
   
 deploy-job:
   stage: deploy
