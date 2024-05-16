@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
-        <Authors>Alan Brault</Authors>
-        <Copyright>Copyright 2024 Alan Brault. All Rights Reserved</Copyright>
+        <Authors>Visus Development Team</Authors>
+        <Copyright>Copyright (c) 2024 Visus Development Team</Copyright>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsTrimmable>false</IsTrimmable>
         <LangVersion>12</LangVersion>
@@ -16,10 +16,10 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <PackageProjectUrl>https://gitlab.com/xaevik/addressvalidation</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/visus-io/addressvalidation.net</PackageProjectUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://gitlab.com/xaevik/addressvalidation.git</RepositoryUrl>
+        <RepositoryUrl>https://github.com/visus-io/addressvalidation.net.git</RepositoryUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(CI)' == 'true'">
