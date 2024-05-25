@@ -39,9 +39,9 @@
       },
       "Microsoft.Extensions.Http.Polly": {
         "type": "Direct",
-        "requested": "[8.0.4, )",
-        "resolved": "8.0.4",
-        "contentHash": "XkAHw4SObEv8P6g83loTrCSVDkeac61KDb/4wbEgOWDLqyFwmVTb0hMuwf02SFU7uitdAzkCtAu2qu0pVx1WIg==",
+        "requested": "[8.0.5, )",
+        "resolved": "8.0.5",
+        "contentHash": "XDBhEoHTeGADZLY4oaVZ4LhVLQKLEf+ya6H/jYafKZ+jWXt1nbBP9W2teliRHHy10u0T8b/rRX5rCTq8hAx9EQ==",
         "dependencies": {
           "Microsoft.Extensions.Http": "8.0.0",
           "Polly": "7.2.4",
