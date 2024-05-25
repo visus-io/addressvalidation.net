@@ -18,6 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Integrations", "02. Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Google", "src\AddressValidation.Google\AddressValidation.Google.csproj", "{5BECB362-2B3C-454E-BA26-F3287B237223}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5FDF21B9-CFE1-4180-A903-A202BD8F2CDF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,5 +46,6 @@ Global
 		{64B9D329-F983-49D5-A73F-C5EA8B1F16A9} = {7EF92B20-2457-4E9A-AF09-610675F68F62}
 		{0FE11DEC-98E1-4583-A794-D4010D226537} = {7EF92B20-2457-4E9A-AF09-610675F68F62}
 		{5BECB362-2B3C-454E-BA26-F3287B237223} = {458D4B81-3659-4CDC-82E6-F0AC7DA1383D}
+		{5FDF21B9-CFE1-4180-A903-A202BD8F2CDF} = {5EC7A540-5858-4C0A-A0CE-ABCB3D48AFEB}
 	EndGlobalSection
 EndGlobal
