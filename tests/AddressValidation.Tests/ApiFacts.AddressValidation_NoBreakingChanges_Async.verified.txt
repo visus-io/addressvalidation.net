@@ -536,6 +536,8 @@ namespace AddressValidation.Abstractions
         AddressValidation.Abstractions.CountryCode? CountryCode { get; }
         System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
         bool? IsResidential { get; }
+        double? Latitude { get; }
+        double? Longitude { get; }
         string? PostalCode { get; }
         string? StateOrProvince { get; }
         System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }

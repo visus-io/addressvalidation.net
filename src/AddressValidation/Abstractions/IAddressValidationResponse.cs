@@ -27,10 +27,22 @@ public interface IAddressValidationResponse
 	public IReadOnlyCollection<string> Errors { get; }
 
 	/// <summary>
-	///     Gets the residential status
+	///     Gets the residential indicator of the address
 	/// </summary>
 	/// <remarks>Value may be not returned by some validation services.</remarks>
 	public bool? IsResidential { get; }
+
+	/// <summary>
+	///     Gets the latitude (in degrees) of the address
+	/// </summary>
+	/// <remarks>Value may not be returned by some validation services.</remarks>
+	public double? Latitude { get; }
+
+	/// <summary>
+	///     Gets the longitude (in degrees) of the address
+	/// </summary>
+	/// <remarks>Value may not be returned by some validation services.</remarks>
+	public double? Longitude { get; }
 
 	/// <summary>
 	///     Gets the zip (postal) code

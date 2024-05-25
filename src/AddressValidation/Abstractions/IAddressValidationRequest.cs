@@ -22,9 +22,9 @@ public interface IAddressValidationRequest
 	public CountryCode? Country { get; set; }
 
 	/// <summary>
-	///     Gets or sets the residential status
+	///     Gets or sets the residential indicator for the address
 	/// </summary>
-	/// <remarks>Value may be ignored for some validation services.</remarks>
+	/// <remarks>Value may be ignored by some validation services.</remarks>
 	public bool? IsResidential { get; set; }
 
 	/// <summary>
