@@ -26,17 +26,8 @@
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <RestoreLockedMode>true</RestoreLockedMode>
     </PropertyGroup>
-
-    <PropertyGroup Condition="($(MSBuildProjectName.Contains('.Tests')))">
-        <GenerateDocumentationFile>false</GenerateDocumentationFile>
-        <IsPackable>false</IsPackable>
-    </PropertyGroup>
-
-    <ItemGroup Condition="($(MSBuildProjectName.Contains('.Tests')))">
-        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="!($(MSBuildProjectName.Contains('.Tests')))">
+    
+    <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
             <_Parameter1>$(AssemblyName).Tests</_Parameter1>
         </AssemblyAttribute>

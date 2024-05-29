@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Http;
 using Microsoft.Extensions.Logging;
+using Model;
 using Refit;
 
 internal sealed class AddressValidationService(
@@ -40,10 +41,14 @@ internal sealed class AddressValidationService(
 			return null;
 		}
 
-		ApiResponse<IAddressValidationResponse> response = await _client.ValidateAddressAsync(abstractRequest, cancellationToken);
+		ApiResponse<ApiAddressValidationResponse> apiResponse = await _client.ValidateAddressAsync(abstractRequest, cancellationToken);
+		if ( !apiResponse.IsSuccessStatusCode )
+		{
+			return null;
+		}
 
-		return !response.IsSuccessStatusCode
-				   ? null
-				   : response.Content;
+		AddressValidationResponse response = new(apiResponse.Content);
+
+		return response;
 	}
 }

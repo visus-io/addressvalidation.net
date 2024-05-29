@@ -1,6 +1,7 @@
 <Project>
     <PropertyGroup>
         <IsPackable>false</IsPackable>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
         <Nullable>enable</Nullable>
         <ImplicitUsings>true</ImplicitUsings>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>

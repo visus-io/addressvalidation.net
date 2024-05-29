@@ -5,12 +5,12 @@ using AddressValidation.Abstractions;
 using Http;
 using Newtonsoft.Json.Linq;
 
-public class AddressValidationRequestFacts
+public sealed class AddressValidationRequestFacts
 {
 	[Fact]
 	public void Serialization_CityState_Success()
 	{
-		const string expected = """{"address":{"addressLines":["1 Lim Ah Pin Road"],"postalCode":"547809","regionCode":"SG"},"enableUspsCass":false}""";
+		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "CityStateRequest.json"));
 
 		// Singapore Post (North East)
 		var request = new AddressValidationRequest
@@ -31,7 +31,7 @@ public class AddressValidationRequestFacts
 	[Fact]
 	public void Serialization_Default_Success()
 	{
-		const string expected = """{"address":{"addressLines":["1600 Amphitheatre Pkwy"],"administrativeArea":"CA","locality":"Mountain View","postalCode":"94043","regionCode":"US"},"enableUspsCass":true}""";
+		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "DefaultRequest.json"));
 
 		// Google US
 		var request = new AddressValidationRequest
@@ -54,7 +54,7 @@ public class AddressValidationRequestFacts
 	[Fact]
 	public void Serialization_NoUspsCass_Success()
 	{
-		const string expected = """{"address":{"addressLines":["111 Richmond Street West"],"administrativeArea":"ON","locality":"Toronto","postalCode":"M5H 2G4","regionCode":"CA"},"enableUspsCass":false}""";
+		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "NoUspsCassRequest.json"));
 
 		// Google Canada
 		var request = new AddressValidationRequest

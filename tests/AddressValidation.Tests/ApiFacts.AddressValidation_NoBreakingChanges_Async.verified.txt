@@ -14,6 +14,28 @@ namespace AddressValidation.Abstractions
         public string? PostalCode { get; set; }
         public string? StateOrProvince { get; set; }
     }
+    public abstract class AddressValidationAbstractResponse : AddressValidation.Abstractions.IAddressValidationResponse
+    {
+        protected AddressValidationAbstractResponse() { }
+        public System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
+        public System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; set; }
+        public System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; init; }
+        public string? CityOrTown { get; init; }
+        public AddressValidation.Abstractions.CountryCode Country { get; init; }
+        public string? PostalCode { get; init; }
+        public string? StateOrProvince { get; init; }
+    }
+    public abstract class AddressValidationAbstractResponse<TResponse> : AddressValidation.Abstractions.AddressValidationAbstractResponse
+        where TResponse :  class, new ()
+    {
+        protected AddressValidationAbstractResponse(TResponse response) { }
+    }
+    public abstract class AddressValidationAbstractResponse<TResponse, TSuggestion> : AddressValidation.Abstractions.AddressValidationAbstractResponse<TResponse>
+        where TResponse :  class, new ()
+        where TSuggestion :  class, new ()
+    {
+        protected AddressValidationAbstractResponse(TResponse response) { }
+    }
     public abstract class AddressValidationRequestAbstractValidator<T> : FluentValidation.AbstractValidator<T>
         where T : AddressValidation.Abstractions.IAddressValidationRequest
     {
@@ -533,11 +555,8 @@ namespace AddressValidation.Abstractions
     {
         System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; }
         string? CityOrTown { get; }
-        AddressValidation.Abstractions.CountryCode? CountryCode { get; }
+        AddressValidation.Abstractions.CountryCode Country { get; }
         System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
-        bool? IsResidential { get; }
-        double? Latitude { get; }
-        double? Longitude { get; }
         string? PostalCode { get; }
         string? StateOrProvince { get; }
         System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }

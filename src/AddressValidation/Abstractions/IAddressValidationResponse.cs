@@ -18,32 +18,14 @@ public interface IAddressValidationResponse
 	/// <summary>
 	///     Gets the country code
 	/// </summary>
-	/// <remarks>Refer to <see cref="CountryCode" /> for values.</remarks>
-	public CountryCode? CountryCode { get; }
+	/// <remarks>Refer to <see cref="Country" /> for values.</remarks>
+	public CountryCode Country { get; }
 
 	/// <summary>
 	///     Gets any errors returned during validation
 	/// </summary>
 	public IReadOnlyCollection<string> Errors { get; }
-
-	/// <summary>
-	///     Gets the residential indicator of the address
-	/// </summary>
-	/// <remarks>Value may be not returned by some validation services.</remarks>
-	public bool? IsResidential { get; }
-
-	/// <summary>
-	///     Gets the latitude (in degrees) of the address
-	/// </summary>
-	/// <remarks>Value may not be returned by some validation services.</remarks>
-	public double? Latitude { get; }
-
-	/// <summary>
-	///     Gets the longitude (in degrees) of the address
-	/// </summary>
-	/// <remarks>Value may not be returned by some validation services.</remarks>
-	public double? Longitude { get; }
-
+	
 	/// <summary>
 	///     Gets the zip (postal) code
 	/// </summary>
