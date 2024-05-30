@@ -4,13 +4,15 @@ using System.Text.Json.Serialization;
 using Abstractions;
 using AddressValidation.Abstractions;
 
-internal sealed class ApiAddressValidationResponse
+internal sealed class ApiAddressValidationResponse : IApiResponse
 {
+	public Guid Id { get; } = Guid.NewGuid();
+
 	[JsonPropertyName("responseId")]
-	public string ResponseId { get; set; } = null!;
+	public string ResponseId { get; init; } = null!;
 
 	[JsonPropertyName("result")]
-	public Response Result { get; set; } = null!;
+	public Response Result { get; init; } = null!;
 
 	internal sealed class Address
 	{

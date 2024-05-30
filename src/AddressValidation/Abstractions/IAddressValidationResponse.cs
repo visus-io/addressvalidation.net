@@ -25,7 +25,7 @@ public interface IAddressValidationResponse
 	///     Gets any errors returned during validation
 	/// </summary>
 	public IReadOnlyCollection<string> Errors { get; }
-	
+
 	/// <summary>
 	///     Gets the zip (postal) code
 	/// </summary>
@@ -43,4 +43,9 @@ public interface IAddressValidationResponse
 	/// </summary>
 	/// <remarks>Collection may be empty if no suggestions provided or validation service does not provide them.</remarks>
 	public IReadOnlyCollection<IAddressValidationResponse> Suggestions { get; }
+
+	/// <summary>
+	///     Gets any warnings returned during validation
+	/// </summary>
+	public IReadOnlyCollection<string> Warnings { get; }
 }

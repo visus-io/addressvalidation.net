@@ -26,10 +26,3 @@ namespace AddressValidation.Google.Serialization.Json
         public override void Write(System.Text.Json.Utf8JsonWriter writer, AddressValidation.Google.Http.AddressValidationRequest? value, System.Text.Json.JsonSerializerOptions options) { }
     }
 }
-namespace AddressValidation.Google.Validation
-{
-    public class AddressValidationRequestValidator : AddressValidation.Abstractions.AddressValidationRequestAbstractValidator<AddressValidation.Google.Http.AddressValidationRequest>
-    {
-        public AddressValidationRequestValidator() { }
-    }
-}

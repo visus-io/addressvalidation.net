@@ -5,10 +5,7 @@ using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
 
-/// <summary>
-///     Validator for <see cref="AddressValidationRequest" /> instances
-/// </summary>
-public class AddressValidationRequestValidator : AddressValidationRequestAbstractValidator<AddressValidationRequest>
+internal sealed class AddressValidationRequestValidator : AddressValidationRequestAbstractValidator<AddressValidationRequest>
 {
 	private readonly HashSet<CountryCode> _supportedRegions =
 	[
@@ -52,9 +49,6 @@ public class AddressValidationRequestValidator : AddressValidationRequestAbstrac
 		CountryCode.US
 	];
 
-	/// <summary>
-	///     Initializes a new instance of <see cref="AddressValidationRequestValidator" />.
-	/// </summary>
 	public AddressValidationRequestValidator()
 	{
 		When(w => w.Country is not null,

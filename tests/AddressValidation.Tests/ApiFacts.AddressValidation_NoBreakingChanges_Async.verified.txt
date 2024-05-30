@@ -16,9 +16,10 @@ namespace AddressValidation.Abstractions
     }
     public abstract class AddressValidationAbstractResponse : AddressValidation.Abstractions.IAddressValidationResponse
     {
-        protected AddressValidationAbstractResponse() { }
+        protected AddressValidationAbstractResponse(FluentValidation.Results.ValidationResult? validationResult) { }
         public System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
         public System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; set; }
+        public System.Collections.Generic.IReadOnlyCollection<string> Warnings { get; }
         public System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; init; }
         public string? CityOrTown { get; init; }
         public AddressValidation.Abstractions.CountryCode Country { get; init; }
@@ -26,15 +27,24 @@ namespace AddressValidation.Abstractions
         public string? StateOrProvince { get; init; }
     }
     public abstract class AddressValidationAbstractResponse<TResponse> : AddressValidation.Abstractions.AddressValidationAbstractResponse
-        where TResponse :  class, new ()
+        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
     {
-        protected AddressValidationAbstractResponse(TResponse response) { }
+        protected AddressValidationAbstractResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
     }
     public abstract class AddressValidationAbstractResponse<TResponse, TSuggestion> : AddressValidation.Abstractions.AddressValidationAbstractResponse<TResponse>
-        where TResponse :  class, new ()
+        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
         where TSuggestion :  class, new ()
     {
-        protected AddressValidationAbstractResponse(TResponse response) { }
+        protected AddressValidationAbstractResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
+    }
+    public abstract class AddressValidationAbstractService<TRequest, TResponse> : AddressValidation.Abstractions.IAddressValidationService<TRequest>
+        where TRequest : AddressValidation.Abstractions.AddressValidationAbstractRequest, new ()
+        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
+    {
+        protected AddressValidationAbstractService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
+        protected abstract System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ConvertResponseAsync(TResponse response, FluentValidation.Results.ValidationResult? responseValidationResult, System.Threading.CancellationToken cancellationToken);
+        protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendRequestAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
+        public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default) { }
     }
     public abstract class AddressValidationRequestAbstractValidator<T> : FluentValidation.AbstractValidator<T>
         where T : AddressValidation.Abstractions.IAddressValidationRequest
@@ -43,6 +53,8 @@ namespace AddressValidation.Abstractions
     }
     public enum CountryCode
     {
+        [System.ComponentModel.Description("Unknown")]
+        ZZ = 0,
         [System.ComponentModel.Description("Afghanistan")]
         AF = 4,
         [System.ComponentModel.Description("Albania")]
@@ -560,11 +572,16 @@ namespace AddressValidation.Abstractions
         string? PostalCode { get; }
         string? StateOrProvince { get; }
         System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }
+        System.Collections.Generic.IReadOnlyCollection<string> Warnings { get; }
     }
     public interface IAddressValidationService<in TRequest>
         where in TRequest : AddressValidation.Abstractions.IAddressValidationRequest
     {
         System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IApiResponse
+    {
+        System.Guid Id { get; }
     }
     public interface IAuthenticationService
     {
@@ -577,5 +594,20 @@ namespace AddressValidation.Http
     {
         public BearerTokenDelegateHandler(AddressValidation.Abstractions.IAuthenticationService authenticationService) { }
         protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken) { }
+    }
+}
+namespace AddressValidation.Model
+{
+    public sealed class EmptyAddressValidationResponse : AddressValidation.Abstractions.IAddressValidationResponse
+    {
+        public EmptyAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResults) { }
+        public System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; }
+        public string? CityOrTown { get; }
+        public AddressValidation.Abstractions.CountryCode Country { get; }
+        public System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
+        public string? PostalCode { get; }
+        public string? StateOrProvince { get; }
+        public System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }
+        public System.Collections.Generic.IReadOnlyCollection<string> Warnings { get; }
     }
 }

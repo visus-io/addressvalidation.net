@@ -11,6 +11,12 @@ using System.ComponentModel;
 public enum CountryCode
 {
 	/// <summary>
+	///     Unknown
+	/// </summary>
+	[Description("Unknown")]
+	ZZ = 0,
+
+	/// <summary>
 	///     Afghanistan
 	/// </summary>
 	[Description("Afghanistan")]
