@@ -54,7 +54,7 @@ public abstract class AbstractAddressValidationRequest : IAddressValidationReque
 				return;
 			}
 
-			_postalCode = AddressGlobals.PostalCodeNotSupported.Contains(_country.Value)
+			_postalCode = AddressGlobals.NoPostalCode.Contains(_country.Value)
 							  ? null
 							  : value;
 		}

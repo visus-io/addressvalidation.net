@@ -1,11 +1,13 @@
 namespace AddressValidation.Model;
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using Abstractions;
 using FluentValidation;
 using FluentValidation.Results;
 
 /// <inheritdoc />
+[ExcludeFromCodeCoverage]
 public sealed class EmptyAddressValidationResponse : IAddressValidationResponse
 {
 	public EmptyAddressValidationResponse(ValidationResult? validationResults)

@@ -1,6 +1,5 @@
 namespace AddressValidation;
 
-using System.Diagnostics;
 using Abstractions;
 using FluentValidation;
 
@@ -16,29 +15,32 @@ public abstract class AbstractAddressValidationRequestValidator<T> : AbstractVal
 	/// <remarks>Contains conditional validation for countries that do not support a state/province.</remarks>
 	protected AbstractAddressValidationRequestValidator()
 	{
-		RuleFor(r => r.AddressLines).NotEmpty();
-		RuleFor(r => r.CityOrTown).NotNull().NotEmpty();
-		RuleFor(r => r.Country).NotNull();
-		RuleFor(r => r.PostalCode).NotNull().NotEmpty();
-
-		RuleForEach(r => r.AddressLines).NotNull().NotEmpty();
-
-		When(w => w.Country is not null && !AddressGlobals.CityStates.Contains(w.Country.Value),
-			 () =>
-			 {
-				 RuleFor(r => r.StateOrProvince).NotNull().NotEmpty();
-			 });
-
 		When(w => w.Country is not null,
 			 () =>
 			 {
+				 RuleFor(r => r.AddressLines).NotEmpty();
+
+				 RuleFor(r => r.CityOrTown)
+					.NotEmpty()
+					.When(w => !AddressGlobals.CityStates.Contains(w.Country!.Value));
+
+				 RuleFor(r => r.StateOrProvince)
+					.NotEmpty()
+					.When(w => !AddressGlobals.CityStates.Contains(w.Country!.Value));
+
+				 RuleFor(r => r.PostalCode)
+					.NotEmpty()
+					.When(w => !AddressGlobals.NoPostalCode.Contains(w.Country!.Value));
+
 				 RuleFor(r => r.Country)
-					.Must(m =>
-						  {
-							  Debug.Assert(m is not null, nameof(m) + " is not null");
-							  return !AddressGlobals.PostalCodeNotSupported.Contains(m.Value);
-						  })
+					.Must(m => !AddressGlobals.NoPostalCode.Contains(m!.Value))
 					.WithMessage("The country '{PropertyValue}' is currently not supported for address validation.");
-			 });
+
+				 RuleForEach(r => r.AddressLines).NotEmpty();
+			 })
+		   .Otherwise(() =>
+					  {
+						  RuleFor(r => r.Country).NotNull();
+					  });
 	}
 }

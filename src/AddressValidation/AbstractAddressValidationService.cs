@@ -17,6 +17,11 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 	protected AbstractAddressValidationService(IValidator<TRequest> requestValidator,
 											   IValidator<TResponse> responseValidator)
 	{
+		if ( !requestValidator.GetType().IsSubclassOf(typeof(AbstractAddressValidationRequestValidator<TRequest>)) )
+		{
+			throw new Exception(); // TODO: Better exception
+		}
+		
 		_requestValidator = requestValidator ?? throw new ArgumentNullException(nameof(requestValidator));
 		_responseValidator = responseValidator ?? throw new ArgumentNullException(nameof(responseValidator));
 	}
@@ -27,7 +32,7 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 		return ValidateInternalAsync(request, cancellationToken);
 	}
 
-	protected abstract ValueTask<TResponse?> SendRequestAsync(TRequest request, CancellationToken cancellationToken);
+	protected abstract ValueTask<TResponse?> SendAsync(TRequest request, CancellationToken cancellationToken);
 
 	private async ValueTask<IAddressValidationResponse?> ValidateInternalAsync(TRequest request, CancellationToken cancellationToken)
 	{
@@ -39,7 +44,7 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 			return new EmptyAddressValidationResponse(requestValidationResult);
 		}
 
-		TResponse? response = await SendRequestAsync(request, cancellationToken);
+		TResponse? response = await SendAsync(request, cancellationToken);
 		if ( response is null )
 		{
 			return null;

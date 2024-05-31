@@ -3,10 +3,10 @@ namespace AddressValidation.Tests;
 using Abstractions;
 using FluentValidation.TestHelper;
 
-public sealed class AddressValidationRequestAbstractValidatorFacts
+public sealed class AbstractAddressValidationRequestValidatorFacts
 {
 	[Fact]
-	public void AddressValidationRequestValidator_Success()
+	public void AbstractAddressValidationRequestValidator_Success()
 	{
 		// Google US
 		var request = new TestAddressValidationRequest
@@ -28,7 +28,39 @@ public sealed class AddressValidationRequestAbstractValidatorFacts
 	}
 
 	[Fact]
-	public void AddressValidationRequestValidator_Unsupported_Country()
+	public void AbstractAddressValidationRequestValidator_NoCountry_Fail()
+	{
+		// Broken Address
+		var request = new TestAddressValidationRequest();
+		
+		var validator = new TestAddressValidationRequestValidator();
+		var result = validator.TestValidate(request);
+
+		result.ShouldHaveValidationErrorFor(f => f.Country);
+	}
+	
+	[Fact]
+	public void AbstractAddressValidationRequestValidator_CityState_Success()
+	{
+		// Singapore Post (North East)
+		var request = new TestAddressValidationRequest
+		{
+			AddressLines =
+			{
+				"1 Lim Ah Pin Rd"
+			},
+			PostalCode = "547809",
+			Country = CountryCode.SG
+		};
+
+		var validator = new TestAddressValidationRequestValidator();
+		var result = validator.TestValidate(request);
+
+		result.ShouldNotHaveAnyValidationErrors();
+	}
+
+	[Fact]
+	public void AbstractAddressValidationRequestValidator_Unsupported_Country()
 	{
 		// U.S Embassy in Zimbabwe
 		var request = new TestAddressValidationRequest

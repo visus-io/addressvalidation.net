@@ -13,7 +13,7 @@ internal sealed class AddressValidationService(
 {
 	private readonly IAddressValidationClient _client = client ?? throw new ArgumentNullException(nameof(client));
 
-	protected override async ValueTask<ApiAddressValidationResponse?> SendRequestAsync(AddressValidationRequest request, CancellationToken cancellationToken)
+	protected override async ValueTask<ApiAddressValidationResponse?> SendAsync(AddressValidationRequest request, CancellationToken cancellationToken)
 	{
 		ApiResponse<ApiAddressValidationResponse> response = await _client.ValidateAddressAsync(request, cancellationToken);
 		return !response.IsSuccessStatusCode ? null : response.Content;

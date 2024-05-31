@@ -47,7 +47,7 @@ namespace AddressValidation
         where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
     {
         protected AbstractAddressValidationService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
-        protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendRequestAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
+        protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
         public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default) { }
     }
 }
@@ -604,6 +604,7 @@ namespace AddressValidation.Http
 }
 namespace AddressValidation.Model
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class EmptyAddressValidationResponse : AddressValidation.Abstractions.IAddressValidationResponse
     {
         public EmptyAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResults) { }
