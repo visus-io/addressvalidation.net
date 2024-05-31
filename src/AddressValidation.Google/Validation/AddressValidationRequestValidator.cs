@@ -59,7 +59,9 @@ internal sealed class AddressValidationRequestValidator : AbstractAddressValidat
 			 })
 		   .Otherwise(() =>
 					  {
-						  RuleFor(r => r.Country).NotNull();
+						  RuleFor(r => r.Country)
+							 .NotNull()
+							 .NotEqual(CountryCode.ZZ);
 					  });
 	}
 }

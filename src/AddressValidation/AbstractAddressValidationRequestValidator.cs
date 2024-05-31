@@ -40,7 +40,9 @@ public abstract class AbstractAddressValidationRequestValidator<T> : AbstractVal
 			 })
 		   .Otherwise(() =>
 					  {
-						  RuleFor(r => r.Country).NotNull();
+						  RuleFor(r => r.Country)
+							 .NotNull()
+							 .NotEqual(CountryCode.ZZ);
 					  });
 	}
 }
