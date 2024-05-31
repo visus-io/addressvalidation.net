@@ -32,19 +32,19 @@ namespace AddressValidation
         public string? StateOrProvince { get; init; }
     }
     public abstract class AbstractAddressValidationResponse<TResponse> : AddressValidation.AbstractAddressValidationResponse
-        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
     {
         protected AbstractAddressValidationResponse(TResponse addressValidationResponse, FluentValidation.Results.ValidationResult? validationResult) { }
     }
     public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AddressValidation.AbstractAddressValidationResponse<TResponse>
-        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
         where TSuggestion :  class, new ()
     {
         protected AbstractAddressValidationResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
     }
     public abstract class AbstractAddressValidationService<TRequest, TResponse> : AddressValidation.Abstractions.IAddressValidationService<TRequest>
-        where TRequest : AddressValidation.AbstractAddressValidationRequest, new ()
-        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
+        where TRequest : AddressValidation.AbstractAddressValidationRequest
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
     {
         protected AbstractAddressValidationService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
         protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
