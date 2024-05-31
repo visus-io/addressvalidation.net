@@ -1,18 +1,20 @@
-namespace AddressValidation.Abstractions;
+namespace AddressValidation;
 
+using Abstractions;
 using FluentValidation;
 using FluentValidation.Results;
+using Http.Abstractions;
 using Model;
 
-public abstract class AddressValidationAbstractService<TRequest, TResponse> : IAddressValidationService<TRequest>
-	where TRequest : AddressValidationAbstractRequest, new()
-	where TResponse : IApiResponse, new()
+public abstract class AbstractAddressValidationService<TRequest, TResponse> : IAddressValidationService<TRequest>
+	where TRequest : AbstractAddressValidationRequest, new()
+	where TResponse : IApiAddressValidationResponse, new()
 {
 	private readonly IValidator<TRequest> _requestValidator;
 
 	private readonly IValidator<TResponse> _responseValidator;
 
-	protected AddressValidationAbstractService(IValidator<TRequest> requestValidator,
+	protected AbstractAddressValidationService(IValidator<TRequest> requestValidator,
 											   IValidator<TResponse> responseValidator)
 	{
 		_requestValidator = requestValidator ?? throw new ArgumentNullException(nameof(requestValidator));
@@ -24,8 +26,6 @@ public abstract class AddressValidationAbstractService<TRequest, TResponse> : IA
 		ArgumentNullException.ThrowIfNull(request);
 		return ValidateInternalAsync(request, cancellationToken);
 	}
-
-	protected abstract ValueTask<IAddressValidationResponse?> ConvertResponseAsync(TResponse response, ValidationResult? responseValidationResult, CancellationToken cancellationToken);
 
 	protected abstract ValueTask<TResponse?> SendRequestAsync(TRequest request, CancellationToken cancellationToken);
 
@@ -53,6 +53,6 @@ public abstract class AddressValidationAbstractService<TRequest, TResponse> : IA
 			return new EmptyAddressValidationResponse(requestValidationResult);
 		}
 
-		return await ConvertResponseAsync(response, responseValidationResult, cancellationToken);
+		return response.ToAddressValidationResponse(responseValidationResult);
 	}
 }

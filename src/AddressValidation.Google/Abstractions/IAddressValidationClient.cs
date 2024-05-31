@@ -1,6 +1,5 @@
 namespace AddressValidation.Google.Abstractions;
 
-using AddressValidation.Abstractions;
 using Http;
 using Refit;
 

@@ -2,7 +2,7 @@ namespace AddressValidation.Http;
 
 using System.Net.Http.Headers;
 using System.Security.Authentication;
-using Abstractions;
+using AddressValidation.Abstractions;
 
 /// <summary>
 ///     An HTTP handler delegate that injects a Bearer token into each request.

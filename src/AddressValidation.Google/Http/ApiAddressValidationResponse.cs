@@ -3,8 +3,11 @@
 using System.Text.Json.Serialization;
 using Abstractions;
 using AddressValidation.Abstractions;
+using AddressValidation.Http.Abstractions;
+using FluentValidation.Results;
+using Model;
 
-internal sealed class ApiAddressValidationResponse : IApiResponse
+internal sealed class ApiAddressValidationResponse : IApiAddressValidationResponse
 {
 	public Guid Id { get; } = Guid.NewGuid();
 
@@ -13,6 +16,11 @@ internal sealed class ApiAddressValidationResponse : IApiResponse
 
 	[JsonPropertyName("result")]
 	public Response Result { get; init; } = null!;
+
+	public IAddressValidationResponse ToAddressValidationResponse(ValidationResult? validationResult)
+	{
+		return new AddressValidationResponse(this, validationResult);
+	}
 
 	internal sealed class Address
 	{

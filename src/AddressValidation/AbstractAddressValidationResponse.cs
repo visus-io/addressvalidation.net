@@ -1,13 +1,15 @@
-namespace AddressValidation.Abstractions;
+namespace AddressValidation;
 
 using System.Collections.ObjectModel;
+using Abstractions;
 using FluentValidation;
 using FluentValidation.Results;
+using Http.Abstractions;
 
 /// <inheritdoc />
-public abstract class AddressValidationAbstractResponse : IAddressValidationResponse
+public abstract class AbstractAddressValidationResponse : IAddressValidationResponse
 {
-	protected AddressValidationAbstractResponse(ValidationResult? validationResult)
+	protected AbstractAddressValidationResponse(ValidationResult? validationResult)
 	{
 		if ( validationResult is null )
 		{
@@ -17,12 +19,16 @@ public abstract class AddressValidationAbstractResponse : IAddressValidationResp
 		Errors = validationResult.Errors
 								 .Where(w => w.Severity == Severity.Error)
 								 .Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
-								 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+								 .Distinct()
+								 .ToList()
+								 .AsReadOnly();
 
 		Warnings = validationResult.Errors
 								   .Where(w => w.Severity == Severity.Warning)
 								   .Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
-								   .ToHashSet(StringComparer.OrdinalIgnoreCase);
+								   .Distinct()
+								   .ToList()
+								   .AsReadOnly();
 	}
 
 	/// <inheritdoc />
@@ -51,22 +57,22 @@ public abstract class AddressValidationAbstractResponse : IAddressValidationResp
 }
 
 /// <inheritdoc />
-public abstract class AddressValidationAbstractResponse<TResponse> : AddressValidationAbstractResponse
-	where TResponse : IApiResponse, new()
+public abstract class AbstractAddressValidationResponse<TResponse> : AbstractAddressValidationResponse
+	where TResponse : IApiAddressValidationResponse, new()
 {
-	protected AddressValidationAbstractResponse(TResponse response, ValidationResult? validationResult)
+	protected AbstractAddressValidationResponse(TResponse addressValidationResponse, ValidationResult? validationResult)
 		: base(validationResult)
 	{
 	}
 }
 
-public abstract class AddressValidationAbstractResponse<TResponse, TSuggestion> : AddressValidationAbstractResponse<TResponse>
-	where TResponse : IApiResponse, new()
+public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AbstractAddressValidationResponse<TResponse>
+	where TResponse : IApiAddressValidationResponse, new()
 	where TSuggestion : class, new()
 {
 	private readonly List<IAddressValidationResponse> _suggestions = [];
 
-	protected AddressValidationAbstractResponse(TResponse response, ValidationResult? validationResult)
+	protected AbstractAddressValidationResponse(TResponse response, ValidationResult? validationResult)
 		: base(response, validationResult)
 	{
 	}

@@ -1,19 +1,20 @@
-namespace AddressValidation.Abstractions;
+namespace AddressValidation;
 
 using System.Diagnostics;
+using Abstractions;
 using FluentValidation;
 
 /// <summary>
 ///     Base Validator for <see cref="IAddressValidationRequest" /> instances.
 /// </summary>
-public abstract class AddressValidationRequestAbstractValidator<T> : AbstractValidator<T>
+public abstract class AbstractAddressValidationRequestValidator<T> : AbstractValidator<T>
 	where T : IAddressValidationRequest
 {
 	/// <summary>
-	///     Initializes a new instance of <see cref="AddressValidationRequestAbstractValidator{T}" />.
+	///     Initializes a new instance of <see cref="AbstractAddressValidationRequestValidator{T}" />.
 	/// </summary>
 	/// <remarks>Contains conditional validation for countries that do not support a state/province.</remarks>
-	protected AddressValidationRequestAbstractValidator()
+	protected AbstractAddressValidationRequestValidator()
 	{
 		RuleFor(r => r.AddressLines).NotEmpty();
 		RuleFor(r => r.CityOrTown).NotNull().NotEmpty();
@@ -27,7 +28,7 @@ public abstract class AddressValidationRequestAbstractValidator<T> : AbstractVal
 			 {
 				 RuleFor(r => r.StateOrProvince).NotNull().NotEmpty();
 			 });
-		
+
 		When(w => w.Country is not null,
 			 () =>
 			 {

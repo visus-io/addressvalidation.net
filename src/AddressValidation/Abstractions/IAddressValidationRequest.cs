@@ -32,7 +32,7 @@ public interface IAddressValidationRequest
 	/// </summary>
 	/// <remarks>
 	///     Value will be dropped for countries that have no concept of a postal code. See
-	///     <see cref="AddressValidationRequestAbstractValidator{T}" /> for details.
+	///     <see cref="AbstractAddressValidationRequestValidator{T}" /> for details.
 	/// </remarks>
 	public string? PostalCode { get; set; }
 
@@ -41,7 +41,7 @@ public interface IAddressValidationRequest
 	/// </summary>
 	/// <remarks>
 	///     Value will be dropped for countries that are considered city-states. See
-	///     <see cref="AddressValidationRequestAbstractValidator{T}" /> for details.
+	///     <see cref="AbstractAddressValidationRequestValidator{T}" /> for details.
 	/// </remarks>
 	public string? StateOrProvince { get; set; }
 }

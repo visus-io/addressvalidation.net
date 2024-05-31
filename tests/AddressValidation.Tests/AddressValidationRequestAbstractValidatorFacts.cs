@@ -47,11 +47,11 @@ public sealed class AddressValidationRequestAbstractValidatorFacts
 		result.ShouldHaveValidationErrorFor(f => f.Country);
 	}
 
-	private class TestAddressValidationRequest : AddressValidationAbstractRequest
+	private class TestAddressValidationRequest : AbstractAddressValidationRequest
 	{
 	}
 
-	private class TestAddressValidationRequestValidator : AddressValidationRequestAbstractValidator<TestAddressValidationRequest>
+	private class TestAddressValidationRequestValidator : AbstractAddressValidationRequestValidator<TestAddressValidationRequest>
 	{
 	}
 }

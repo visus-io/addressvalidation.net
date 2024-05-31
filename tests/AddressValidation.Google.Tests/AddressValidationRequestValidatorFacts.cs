@@ -43,7 +43,7 @@ public sealed class AddressValidationRequestValidatorFacts
 			StateOrProvince = "Minskaja voblasć",
 			Country = CountryCode.BY
 		};
-		
+
 		var validator = new AddressValidationRequestValidator();
 		var result = validator.TestValidate(request);
 

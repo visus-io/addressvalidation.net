@@ -18,12 +18,16 @@ public sealed class EmptyAddressValidationResponse : IAddressValidationResponse
 		Errors = validationResults.Errors
 								  .Where(w => w.Severity == Severity.Error)
 								  .Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
-								  .ToHashSet(StringComparer.OrdinalIgnoreCase);
+								  .Distinct()
+								  .ToList()
+								  .AsReadOnly();
 
 		Warnings = validationResults.Errors
 									.Where(w => w.Severity == Severity.Warning)
 									.Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
-									.ToHashSet(StringComparer.OrdinalIgnoreCase);
+									.Distinct()
+									.ToList()
+									.AsReadOnly();
 	}
 
 	/// <inheritdoc />

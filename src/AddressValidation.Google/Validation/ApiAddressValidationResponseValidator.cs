@@ -5,5 +5,4 @@ using Http;
 
 internal sealed class ApiAddressValidationResponseValidator : AbstractValidator<ApiAddressValidationResponse>
 {
-	
 }

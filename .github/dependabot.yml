@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     target-branch: develop
-    schedule: 
+    schedule:
       interval: weekly
     labels:
       - dependencies
@@ -13,7 +13,7 @@ updates:
         update-types:
           - version-update:semver-minor
           - version-update:semver-patch
-          
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -37,7 +37,7 @@ updates:
   - package-ecosystem: nuget
     directory: /
     target-branch: develop
-    schedule: 
+    schedule:
       interval: weekly
     labels:
       - dependencies
@@ -47,7 +47,7 @@ updates:
         update-types:
           - version-update:semver-minor
           - version-update:semver-patch
-    
+
   - package-ecosystem: nuget
     directory: /
     schedule:
@@ -62,7 +62,7 @@ updates:
         applies-to: security-updates
         update-types:
           - minor
-          - patch         
+          - patch
     ignore:
       - dependency-name: '*'
         update-types:

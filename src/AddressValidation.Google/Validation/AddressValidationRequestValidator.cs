@@ -5,7 +5,7 @@ using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
 
-internal sealed class AddressValidationRequestValidator : AddressValidationRequestAbstractValidator<AddressValidationRequest>
+internal sealed class AddressValidationRequestValidator : AbstractAddressValidationRequestValidator<AddressValidationRequest>
 {
 	private readonly HashSet<CountryCode> _supportedRegions =
 	[

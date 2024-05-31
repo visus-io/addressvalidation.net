@@ -1,9 +1,10 @@
-namespace AddressValidation.Abstractions;
+namespace AddressValidation;
 
 using System.Text.Json.Serialization;
+using Abstractions;
 
 /// <inheritdoc />
-public abstract class AddressValidationAbstractRequest : IAddressValidationRequest
+public abstract class AbstractAddressValidationRequest : IAddressValidationRequest
 {
 	private CountryCode? _country;
 

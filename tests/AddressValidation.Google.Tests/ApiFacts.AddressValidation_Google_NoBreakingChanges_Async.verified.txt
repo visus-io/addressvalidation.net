@@ -11,7 +11,7 @@ namespace AddressValidation.Google.Extensions
 namespace AddressValidation.Google.Http
 {
     [System.Text.Json.Serialization.JsonConverter(typeof(AddressValidation.Google.Serialization.Json.AddressValidationRequestConverter))]
-    public sealed class AddressValidationRequest : AddressValidation.Abstractions.AddressValidationAbstractRequest
+    public sealed class AddressValidationRequest : AddressValidation.AbstractAddressValidationRequest
     {
         public AddressValidationRequest() { }
         public bool EnableUspsCass { get; }

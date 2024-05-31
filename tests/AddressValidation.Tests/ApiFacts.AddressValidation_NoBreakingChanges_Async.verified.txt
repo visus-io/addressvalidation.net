@@ -1,11 +1,11 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("AddressValidation.Tests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
-namespace AddressValidation.Abstractions
+namespace AddressValidation
 {
-    public abstract class AddressValidationAbstractRequest : AddressValidation.Abstractions.IAddressValidationRequest
+    public abstract class AbstractAddressValidationRequest : AddressValidation.Abstractions.IAddressValidationRequest
     {
-        protected AddressValidationAbstractRequest() { }
+        protected AbstractAddressValidationRequest() { }
         public System.Collections.Generic.ISet<string> AddressLines { get; }
         public string? CityOrTown { get; set; }
         [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter?))]
@@ -14,9 +14,14 @@ namespace AddressValidation.Abstractions
         public string? PostalCode { get; set; }
         public string? StateOrProvince { get; set; }
     }
-    public abstract class AddressValidationAbstractResponse : AddressValidation.Abstractions.IAddressValidationResponse
+    public abstract class AbstractAddressValidationRequestValidator<T> : FluentValidation.AbstractValidator<T>
+        where T : AddressValidation.Abstractions.IAddressValidationRequest
     {
-        protected AddressValidationAbstractResponse(FluentValidation.Results.ValidationResult? validationResult) { }
+        protected AbstractAddressValidationRequestValidator() { }
+    }
+    public abstract class AbstractAddressValidationResponse : AddressValidation.Abstractions.IAddressValidationResponse
+    {
+        protected AbstractAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResult) { }
         public System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
         public System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; set; }
         public System.Collections.Generic.IReadOnlyCollection<string> Warnings { get; }
@@ -26,31 +31,28 @@ namespace AddressValidation.Abstractions
         public string? PostalCode { get; init; }
         public string? StateOrProvince { get; init; }
     }
-    public abstract class AddressValidationAbstractResponse<TResponse> : AddressValidation.Abstractions.AddressValidationAbstractResponse
-        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
+    public abstract class AbstractAddressValidationResponse<TResponse> : AddressValidation.AbstractAddressValidationResponse
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
     {
-        protected AddressValidationAbstractResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
+        protected AbstractAddressValidationResponse(TResponse addressValidationResponse, FluentValidation.Results.ValidationResult? validationResult) { }
     }
-    public abstract class AddressValidationAbstractResponse<TResponse, TSuggestion> : AddressValidation.Abstractions.AddressValidationAbstractResponse<TResponse>
-        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
+    public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AddressValidation.AbstractAddressValidationResponse<TResponse>
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
         where TSuggestion :  class, new ()
     {
-        protected AddressValidationAbstractResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
+        protected AbstractAddressValidationResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
     }
-    public abstract class AddressValidationAbstractService<TRequest, TResponse> : AddressValidation.Abstractions.IAddressValidationService<TRequest>
-        where TRequest : AddressValidation.Abstractions.AddressValidationAbstractRequest, new ()
-        where TResponse : AddressValidation.Abstractions.IApiResponse, new ()
+    public abstract class AbstractAddressValidationService<TRequest, TResponse> : AddressValidation.Abstractions.IAddressValidationService<TRequest>
+        where TRequest : AddressValidation.AbstractAddressValidationRequest, new ()
+        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse, new ()
     {
-        protected AddressValidationAbstractService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
-        protected abstract System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ConvertResponseAsync(TResponse response, FluentValidation.Results.ValidationResult? responseValidationResult, System.Threading.CancellationToken cancellationToken);
+        protected AbstractAddressValidationService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
         protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendRequestAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
         public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default) { }
     }
-    public abstract class AddressValidationRequestAbstractValidator<T> : FluentValidation.AbstractValidator<T>
-        where T : AddressValidation.Abstractions.IAddressValidationRequest
-    {
-        protected AddressValidationRequestAbstractValidator() { }
-    }
+}
+namespace AddressValidation.Abstractions
+{
     public enum CountryCode
     {
         [System.ComponentModel.Description("Unknown")]
@@ -579,13 +581,17 @@ namespace AddressValidation.Abstractions
     {
         System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default);
     }
-    public interface IApiResponse
-    {
-        System.Guid Id { get; }
-    }
     public interface IAuthenticationService
     {
         System.Threading.Tasks.ValueTask<string?> GetAccessTokenAsync(System.Threading.CancellationToken cancellationToken = default);
+    }
+}
+namespace AddressValidation.Http.Abstractions
+{
+    public interface IApiAddressValidationResponse
+    {
+        System.Guid Id { get; }
+        AddressValidation.Abstractions.IAddressValidationResponse ToAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResult);
     }
 }
 namespace AddressValidation.Http
