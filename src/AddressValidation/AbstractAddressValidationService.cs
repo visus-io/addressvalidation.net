@@ -7,8 +7,8 @@ using Http.Abstractions;
 using Model;
 
 public abstract class AbstractAddressValidationService<TRequest, TResponse> : IAddressValidationService<TRequest>
-	where TRequest : AbstractAddressValidationRequest, new()
-	where TResponse : IApiAddressValidationResponse, new()
+	where TRequest : AbstractAddressValidationRequest
+	where TResponse : IApiAddressValidationResponse
 {
 	private readonly IValidator<TRequest> _requestValidator;
 
@@ -21,7 +21,7 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 		{
 			throw new Exception(); // TODO: Better exception
 		}
-		
+
 		_requestValidator = requestValidator ?? throw new ArgumentNullException(nameof(requestValidator));
 		_responseValidator = responseValidator ?? throw new ArgumentNullException(nameof(responseValidator));
 	}

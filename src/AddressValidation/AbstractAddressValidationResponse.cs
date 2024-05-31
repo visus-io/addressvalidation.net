@@ -58,7 +58,7 @@ public abstract class AbstractAddressValidationResponse : IAddressValidationResp
 
 /// <inheritdoc />
 public abstract class AbstractAddressValidationResponse<TResponse> : AbstractAddressValidationResponse
-	where TResponse : IApiAddressValidationResponse, new()
+	where TResponse : IApiAddressValidationResponse
 {
 	protected AbstractAddressValidationResponse(TResponse addressValidationResponse, ValidationResult? validationResult)
 		: base(validationResult)
@@ -67,7 +67,7 @@ public abstract class AbstractAddressValidationResponse<TResponse> : AbstractAdd
 }
 
 public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AbstractAddressValidationResponse<TResponse>
-	where TResponse : IApiAddressValidationResponse, new()
+	where TResponse : IApiAddressValidationResponse
 	where TSuggestion : class, new()
 {
 	private readonly List<IAddressValidationResponse> _suggestions = [];

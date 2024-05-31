@@ -1,6 +1,5 @@
 namespace AddressValidation.Google.Validation;
 
-using System.Diagnostics;
 using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
@@ -55,11 +54,7 @@ internal sealed class AddressValidationRequestValidator : AbstractAddressValidat
 			 () =>
 			 {
 				 RuleFor(r => r.Country)
-					.Must(m =>
-						  {
-							  Debug.Assert(m is not null, nameof(m) + " is not null");
-							  return _supportedRegions.Contains(m.Value);
-						  })
+					.Must(m => _supportedRegions.Contains(m!.Value))
 					.WithMessage("The country '{PropertyValue}' is not supported by the Google Address Validation API.");
 			 })
 		   .Otherwise(() =>

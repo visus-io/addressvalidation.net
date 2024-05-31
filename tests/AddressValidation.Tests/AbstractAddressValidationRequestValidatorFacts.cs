@@ -6,19 +6,17 @@ using FluentValidation.TestHelper;
 public sealed class AbstractAddressValidationRequestValidatorFacts
 {
 	[Fact]
-	public void AbstractAddressValidationRequestValidator_Success()
+	public void AbstractAddressValidationRequestValidator_CityState_Success()
 	{
-		// Google US
+		// Singapore Post (North East)
 		var request = new TestAddressValidationRequest
 		{
 			AddressLines =
 			{
-				"1600 Amphitheatre Pkwy"
+				"1 Lim Ah Pin Rd"
 			},
-			CityOrTown = "Mountain View",
-			StateOrProvince = "CA",
-			PostalCode = "94043",
-			Country = CountryCode.US
+			PostalCode = "547809",
+			Country = CountryCode.SG
 		};
 
 		var validator = new TestAddressValidationRequestValidator();
@@ -32,25 +30,27 @@ public sealed class AbstractAddressValidationRequestValidatorFacts
 	{
 		// Broken Address
 		var request = new TestAddressValidationRequest();
-		
+
 		var validator = new TestAddressValidationRequestValidator();
 		var result = validator.TestValidate(request);
 
 		result.ShouldHaveValidationErrorFor(f => f.Country);
 	}
-	
+
 	[Fact]
-	public void AbstractAddressValidationRequestValidator_CityState_Success()
+	public void AbstractAddressValidationRequestValidator_Success()
 	{
-		// Singapore Post (North East)
+		// Google US
 		var request = new TestAddressValidationRequest
 		{
 			AddressLines =
 			{
-				"1 Lim Ah Pin Rd"
+				"1600 Amphitheatre Pkwy"
 			},
-			PostalCode = "547809",
-			Country = CountryCode.SG
+			CityOrTown = "Mountain View",
+			StateOrProvince = "CA",
+			PostalCode = "94043",
+			Country = CountryCode.US
 		};
 
 		var validator = new TestAddressValidationRequestValidator();
