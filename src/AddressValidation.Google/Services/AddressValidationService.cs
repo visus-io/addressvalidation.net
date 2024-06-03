@@ -5,13 +5,13 @@ using Http;
 
 internal sealed class AddressValidationService(
 	AddressValidationClient client,
-	IValidator<AddressValidationRequest> requestValidator,
+	IValidator<GoogleAddressValidationRequest> requestValidator,
 	IValidator<ApiAddressValidationResponse> responseValidator)
-	: AbstractAddressValidationService<AddressValidationRequest, ApiAddressValidationResponse>(requestValidator, responseValidator)
+	: AbstractAddressValidationService<GoogleAddressValidationRequest, ApiAddressValidationResponse>(requestValidator, responseValidator)
 {
 	private readonly AddressValidationClient _client = client ?? throw new ArgumentNullException(nameof(client));
 
-	protected override async ValueTask<ApiAddressValidationResponse?> SendAsync(AddressValidationRequest request, CancellationToken cancellationToken)
+	protected override async ValueTask<ApiAddressValidationResponse?> SendAsync(GoogleAddressValidationRequest request, CancellationToken cancellationToken)
 	{
 		return await _client.ValidateAddressAsync(request, cancellationToken);
 	}

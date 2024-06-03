@@ -11,7 +11,7 @@ public sealed class AddressValidationRequestValidatorFacts
 	public void AddressValidationRequestValidator_Unsupported_Region()
 	{
 		// U.S. Embassy (Belarus)
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{

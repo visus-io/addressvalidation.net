@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Http;
 
-public sealed class AddressValidationRequestConverter : JsonConverter<AddressValidationRequest?>
+public sealed class AddressValidationRequestConverter : JsonConverter<GoogleAddressValidationRequest?>
 {
 	private const string AddressLinesPropertyName = "addressLines";
 	private const string AddressPropertyName = "address";
@@ -15,13 +15,13 @@ public sealed class AddressValidationRequestConverter : JsonConverter<AddressVal
 	private const string RegionCodePropertyName = "regionCode";
 
 	/// <inheritdoc />
-	public override AddressValidationRequest? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	public override GoogleAddressValidationRequest? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		throw new NotImplementedException();
 	}
 
 	/// <inheritdoc />
-	public override void Write(Utf8JsonWriter writer, AddressValidationRequest? value, JsonSerializerOptions options)
+	public override void Write(Utf8JsonWriter writer, GoogleAddressValidationRequest? value, JsonSerializerOptions options)
 	{
 		if ( value is null )
 		{

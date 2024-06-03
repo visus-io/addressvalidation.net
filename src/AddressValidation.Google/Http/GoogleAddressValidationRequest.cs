@@ -6,7 +6,7 @@ using Serialization.Json;
 
 /// <inheritdoc />
 [JsonConverter(typeof(AddressValidationRequestConverter))]
-public sealed class AddressValidationRequest : AbstractAddressValidationRequest
+public sealed class GoogleAddressValidationRequest : AbstractAddressValidationRequest
 {
 	private readonly HashSet<CountryCode> _cassEnabledCountries =
 	[

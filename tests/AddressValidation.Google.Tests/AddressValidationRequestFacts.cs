@@ -13,7 +13,7 @@ public sealed class AddressValidationRequestFacts
 		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "CityStateRequest.json"));
 
 		// Singapore Post (North East)
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{
@@ -34,7 +34,7 @@ public sealed class AddressValidationRequestFacts
 		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "DefaultRequest.json"));
 
 		// Google US
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{
@@ -57,7 +57,7 @@ public sealed class AddressValidationRequestFacts
 		var expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "NoUspsCassRequest.json"));
 
 		// Google Canada
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{

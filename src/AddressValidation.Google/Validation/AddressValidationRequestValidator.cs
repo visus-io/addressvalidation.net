@@ -4,7 +4,7 @@ using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
 
-internal sealed class AddressValidationRequestValidator : AbstractAddressValidationRequestValidator<AddressValidationRequest>
+internal sealed class AddressValidationRequestValidator : AbstractAddressValidationRequestValidator<GoogleAddressValidationRequest>
 {
 	private readonly HashSet<CountryCode> _supportedRegions =
 	[

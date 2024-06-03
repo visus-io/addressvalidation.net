@@ -25,7 +25,7 @@ public sealed class AddressValidationServiceFacts
 
 		// Google US
 		// Request will be discarded for test
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{
@@ -64,7 +64,7 @@ public sealed class AddressValidationServiceFacts
 		var responseValidator = new ApiAddressValidationResponseValidator();
 
 		// Singapore Post (North East)
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{
@@ -111,7 +111,7 @@ public sealed class AddressValidationServiceFacts
 		var responseValidator = new ApiAddressValidationResponseValidator();
 
 		// Google US
-		var request = new AddressValidationRequest
+		var request = new GoogleAddressValidationRequest
 		{
 			AddressLines =
 			{

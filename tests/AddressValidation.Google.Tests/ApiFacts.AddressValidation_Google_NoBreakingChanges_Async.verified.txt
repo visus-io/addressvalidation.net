@@ -5,24 +5,24 @@ namespace AddressValidation.Google.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddGoogleAddressValidationHttpClient(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddGoogleAddressValidation(this Microsoft.Extensions.DependencyInjection.IServiceCollection services) { }
     }
 }
 namespace AddressValidation.Google.Http
 {
     [System.Text.Json.Serialization.JsonConverter(typeof(AddressValidation.Google.Serialization.Json.AddressValidationRequestConverter))]
-    public sealed class AddressValidationRequest : AddressValidation.AbstractAddressValidationRequest
+    public sealed class GoogleAddressValidationRequest : AddressValidation.AbstractAddressValidationRequest
     {
-        public AddressValidationRequest() { }
+        public GoogleAddressValidationRequest() { }
         public bool EnableUspsCass { get; }
     }
 }
 namespace AddressValidation.Google.Serialization.Json
 {
-    public sealed class AddressValidationRequestConverter : System.Text.Json.Serialization.JsonConverter<AddressValidation.Google.Http.AddressValidationRequest?>
+    public sealed class AddressValidationRequestConverter : System.Text.Json.Serialization.JsonConverter<AddressValidation.Google.Http.GoogleAddressValidationRequest?>
     {
         public AddressValidationRequestConverter() { }
-        public override AddressValidation.Google.Http.AddressValidationRequest? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) { }
-        public override void Write(System.Text.Json.Utf8JsonWriter writer, AddressValidation.Google.Http.AddressValidationRequest? value, System.Text.Json.JsonSerializerOptions options) { }
+        public override AddressValidation.Google.Http.GoogleAddressValidationRequest? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) { }
+        public override void Write(System.Text.Json.Utf8JsonWriter writer, AddressValidation.Google.Http.GoogleAddressValidationRequest? value, System.Text.Json.JsonSerializerOptions options) { }
     }
 }

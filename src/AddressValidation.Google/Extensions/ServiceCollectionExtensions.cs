@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using Polly.Extensions.Http;
+using Services;
 using Validation;
 
 public static class ServiceCollectionExtensions
@@ -17,15 +18,15 @@ public static class ServiceCollectionExtensions
 
 	private const int TransientRetryCount = 3;
 
-	public static IServiceCollection AddGoogleAddressValidationHttpClient(this IServiceCollection services)
+	public static IServiceCollection AddGoogleAddressValidation(this IServiceCollection services)
 	{
 		ArgumentNullException.ThrowIfNull(services);
 
-		services.AddScoped<IValidator<AddressValidationRequest>, AddressValidationRequestValidator>();
+		services.AddScoped<IValidator<GoogleAddressValidationRequest>, AddressValidationRequestValidator>();
+		services.AddScoped<IAddressValidationRequest, GoogleAddressValidationRequest>();
+		services.AddScoped<IAddressValidationService<GoogleAddressValidationRequest>, AddressValidationService>();
 
-		services.AddSingleton<ApiKeyDelegateHandler>();
-
-		services.AddTransient<IAddressValidationRequest, AddressValidationRequest>();
+		services.AddTransient<ApiKeyDelegateHandler>();
 
 		services.AddHttpClient<AddressValidationClient>()
 				.AddPolicyHandler((provider, _) => GetHttpRetryPolicy(GetLoggerInstance(provider)))
