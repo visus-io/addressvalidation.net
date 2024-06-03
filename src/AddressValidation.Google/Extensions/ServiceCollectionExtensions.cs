@@ -6,12 +6,15 @@ using FluentValidation;
 using Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using Polly.Extensions.Http;
 using Validation;
 
 public static class ServiceCollectionExtensions
 {
+	private const string LoggingCategoryName = "AddressValidation.Google";
+
 	private const int TransientRetryCount = 3;
 
 	public static IServiceCollection AddGoogleAddressValidationHttpClient(this IServiceCollection services)
@@ -25,7 +28,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<IAddressValidationRequest, AddressValidationRequest>();
 
 		services.AddHttpClient<AddressValidationClient>()
-				.AddPolicyHandler((provider, _) => GetHttpRetryPolicy(provider.GetRequiredService<ILogger>()))
+				.AddPolicyHandler((provider, _) => GetHttpRetryPolicy(GetLoggerInstance(provider)))
 				.AddHttpMessageHandler<ApiKeyDelegateHandler>();
 
 		return services;
@@ -50,5 +53,14 @@ public static class ServiceCollectionExtensions
 
 														  logger.LogError("{message}", message);
 													  });
+	}
+
+	[ExcludeFromCodeCoverage]
+	private static ILogger GetLoggerInstance(IServiceProvider provider)
+	{
+		ILoggerFactory? factory = provider.GetService<ILoggerFactory>();
+		return factory is null
+				   ? NullLoggerFactory.Instance.CreateLogger(LoggingCategoryName)
+				   : factory.CreateLogger(LoggingCategoryName);
 	}
 }
