@@ -15,6 +15,8 @@ public abstract class AbstractAddressValidationRequestValidator<T> : AbstractVal
 	/// <remarks>Contains conditional validation for countries that do not support a state/province.</remarks>
 	protected AbstractAddressValidationRequestValidator()
 	{
+		RuleFor(r => r.Country).NotNull();
+		
 		When(w => w.Country is not null,
 			 () =>
 			 {
