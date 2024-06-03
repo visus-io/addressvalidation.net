@@ -18,6 +18,8 @@ public sealed class AddressValidationServiceFacts
 	{
 		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
 
+		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "ErrorResponse.json"));
+		
 		var requestValidator = new AddressValidationRequestValidator();
 		var responseValidator = new ApiAddressValidationResponseValidator();
 
@@ -34,19 +36,10 @@ public sealed class AddressValidationServiceFacts
 			PostalCode = "94043",
 			Country = CountryCode.US
 		};
-
-		var error = new ApiErrorResponse
-		{
-			Error = new ApiErrorResponse.ErrorResponse
-			{
-				Code = HttpStatusCode.BadRequest,
-				Message = "Address is missing from request."
-			}
-		};
-
+		
 		var httpMessageHandlerMock = new MockHttpMessageHandler();
 		httpMessageHandlerMock.Expect("v1:validateAddress")
-							  .Respond(HttpStatusCode.BadRequest, "application/json", JsonSerializer.Serialize(error));
+							  .Respond(HttpStatusCode.BadRequest, "application/json", json);
 
 		var httpClient = httpMessageHandlerMock.ToHttpClient();
 

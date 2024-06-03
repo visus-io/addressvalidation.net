@@ -53,6 +53,9 @@
         <None Update="Fixtures\NoUspsCassResponse.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Fixtures\ErrorResponse.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
