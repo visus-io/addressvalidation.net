@@ -4,7 +4,12 @@ using System.Net;
 
 internal sealed class ApiErrorResponse
 {
-	public HttpStatusCode Code { get; set; }
+	public ErrorResponse Error { get; set; } = null!;
 
-	public string? Message { get; set; }
+	internal sealed class ErrorResponse
+	{
+		public HttpStatusCode Code { get; set; }
+
+		public string? Message { get; set; }
+	}
 }

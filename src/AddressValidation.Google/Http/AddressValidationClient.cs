@@ -37,7 +37,7 @@ internal sealed class AddressValidationClient
 		ApiErrorResponse? errorResponse = await response.Content.ReadFromJsonAsync<ApiErrorResponse>(cancellationToken);
 		if ( errorResponse is not null )
 		{
-			_logger.LogError("{code}: {message}", errorResponse.Code, errorResponse.Message);
+			_logger.LogError("{code}: {message}", errorResponse.Error.Code, errorResponse.Error.Message);
 		}
 
 		return null;

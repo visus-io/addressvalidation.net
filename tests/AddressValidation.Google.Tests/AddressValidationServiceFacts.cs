@@ -37,8 +37,11 @@ public sealed class AddressValidationServiceFacts
 
 		var error = new ApiErrorResponse
 		{
-			Code = HttpStatusCode.BadRequest,
-			Message = "Address is missing from request."
+			Error = new ApiErrorResponse.ErrorResponse
+			{
+				Code = HttpStatusCode.BadRequest,
+				Message = "Address is missing from request."
+			}
 		};
 
 		var httpMessageHandlerMock = new MockHttpMessageHandler();
