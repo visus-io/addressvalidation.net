@@ -28,7 +28,7 @@ public static class MockExtensions
 								 It.IsAny<EventId>(),
 								 It.Is<It.IsAnyType>((o, t) => state(o, t)),
 								 It.IsAny<Exception>(),
-								 It.Is<Func<It.IsAnyType, Exception?, string>>((o, t) => true)), times);
+								 It.Is<Func<It.IsAnyType, Exception?, string>>((_, _) => true)), times);
 
 		return logger;
 	}
