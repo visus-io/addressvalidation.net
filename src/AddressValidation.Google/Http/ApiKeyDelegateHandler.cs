@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 internal sealed class ApiKeyDelegateHandler(IConfiguration configuration) : DelegatingHandler
 {
-	private const string GoogleApiKey = "GOOGLE_API_KEY";
+	private const string GoogleApiKey = "AVE_GOOGLE_API_KEY";
 
 	private readonly IConfiguration _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
