@@ -17,10 +17,10 @@ internal static class MockExtensions
 
 	public static Mock<ILogger<T>> VerifyLoggingCall<T>(this Mock<ILogger<T>> logger, LogLevel logLevel, string? message, Times times)
 	{
-		Func<object, Type, bool> state = (o, t) => true;
+		Func<object, Type, bool> state = (_, _) => true;
 		if ( !string.IsNullOrWhiteSpace(message) )
 		{
-			state = (o, t) => string.Compare(o.ToString(), message, StringComparison.OrdinalIgnoreCase) == 0;
+			state = (o, _) => string.Compare(o.ToString(), message, StringComparison.OrdinalIgnoreCase) == 0;
 		}
 
 		logger.Verify(v => v.Log(
