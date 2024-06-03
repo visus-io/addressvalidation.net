@@ -293,24 +293,6 @@
           "Polly": "7.1.0"
         }
       },
-      "Refit": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "MeOXucNjebiLiOM+hM4niN2cWLlwaQWNCGZs0LDUEoCVwOtV/IWOMOqlAbUeb8Y0/iOgMai2g6Gz9M/d6V7gtA==",
-        "dependencies": {
-          "System.Net.Http.Json": "7.0.1",
-          "System.Text.Json": "7.0.3"
-        }
-      },
-      "Refit.HttpClientFactory": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "27zuHqcN2BJbNqGF0OlUAPEKNnPFibJVHsS5XnViS2Brw1ceCbzYsDqP19dlgWCb/sLGFxSpRWhkCimOo8jljw==",
-        "dependencies": {
-          "Microsoft.Extensions.Http": "7.0.0",
-          "Refit": "7.0.0"
-        }
-      },
       "SimpleInfoName": {
         "type": "Transitive",
         "resolved": "2.2.0",
@@ -344,31 +326,10 @@
           "System.CodeDom": "8.0.0"
         }
       },
-      "System.Net.Http.Json": {
-        "type": "Transitive",
-        "resolved": "7.0.1",
-        "contentHash": "ni8+BJnndbJI9AXme/qCYXg1s4RpdRJx3gKp5WzcWuLt4l3syuscgk5Becis6x4E7HbQk4z6A7FNXFQD75F+wQ==",
-        "dependencies": {
-          "System.Text.Json": "7.0.2"
-        }
-      },
       "System.Reflection.Metadata": {
         "type": "Transitive",
         "resolved": "1.6.0",
         "contentHash": "COC1aiAJjCoA5GBF+QKL2uLqEBew4JsCkQmoHKbN3TlOZKa2fKLz5CpiRQKDz0RsAOEGsVKqOD5bomsXq/4STQ=="
-      },
-      "System.Text.Encodings.Web": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "OP6umVGxc0Z0MvZQBVigj4/U31Pw72ITihDWP9WiWDm+q5aoe0GaJivsfYGq53o6dxH7DcXWiCTl7+0o2CGdmg=="
-      },
-      "System.Text.Json": {
-        "type": "Transitive",
-        "resolved": "7.0.3",
-        "contentHash": "AyjhwXN1zTFeIibHimfJn6eAsZ7rTBib79JQpzg8WAuR/HKDu9JGNHTuu3nbbXQ/bgI+U4z6HtZmCHNXB1QXrQ==",
-        "dependencies": {
-          "System.Text.Encodings.Web": "7.0.0"
-        }
       },
       "Verify": {
         "type": "Transitive",
@@ -435,9 +396,14 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[8.0.1, )",
           "Microsoft.Extensions.Http": "[8.0.0, )",
           "Microsoft.Extensions.Http.Polly": "[8.0.5, )",
-          "Refit": "[7.0.0, )",
-          "Refit.HttpClientFactory": "[7.0.0, )"
+          "RichardSzalay.MockHttp": "(, )"
         }
+      },
+      "RichardSzalay.MockHttp": {
+        "type": "CentralTransitive",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "QwnauYiaywp65QKFnP+wvgiQ2D8Pv888qB2dyfd7MSVDF06sIvxqASenk+RxsWybyyt+Hu1Y251wQxpHTv3UYg=="
       }
     }
   }

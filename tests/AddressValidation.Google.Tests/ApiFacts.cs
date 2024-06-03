@@ -2,7 +2,7 @@ namespace AddressValidation.Google.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Abstractions;
+using Http;
 using PublicApiGenerator;
 
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
@@ -12,7 +12,7 @@ public sealed class ApiFacts
 	[MethodImpl(MethodImplOptions.NoInlining)]
 	public async Task AddressValidation_Google_NoBreakingChanges_Async()
 	{
-		var api = typeof(IAddressValidationClient).Assembly.GeneratePublicApi(new ApiGeneratorOptions
+		var api = typeof(AddressValidationClient).Assembly.GeneratePublicApi(new ApiGeneratorOptions
 		{
 			ExcludeAttributes = ["System.Runtime.Versioning.TargetFrameworkAttribute", "System.Reflection.AssemblyMetadataAttribute"]
 		});

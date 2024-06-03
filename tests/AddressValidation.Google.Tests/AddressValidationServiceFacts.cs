@@ -2,26 +2,70 @@ namespace AddressValidation.Google.Tests;
 
 using System.Net;
 using System.Text.Json;
-using Abstractions;
 using AddressValidation.Abstractions;
+using Extensions;
 using Http;
+using Microsoft.Extensions.Logging;
 using Moq;
-using Refit;
+using RichardSzalay.MockHttp;
 using Services;
 using Validation;
 
 public sealed class AddressValidationServiceFacts
 {
 	[Fact]
-	public async Task Validate_CityState_Success()
+	public async Task Validate_BadRequest_Logged()
 	{
-		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "CityStateResponse.json"));
-
-		var clientMock = new Mock<IAddressValidationClient>();
+		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
 
 		var requestValidator = new AddressValidationRequestValidator();
 		var responseValidator = new ApiAddressValidationResponseValidator();
-		var service = new AddressValidationService(clientMock.Object, requestValidator, responseValidator);
+
+		// Google US
+		// Request will be discarded for test
+		var request = new AddressValidationRequest
+		{
+			AddressLines =
+			{
+				"1600 Amphitheatre Pkwy"
+			},
+			CityOrTown = "Mountain View",
+			StateOrProvince = "CA",
+			PostalCode = "94043",
+			Country = CountryCode.US
+		};
+
+		var error = new ApiErrorResponse
+		{
+			Code = HttpStatusCode.BadRequest,
+			Message = "Address is missing from request."
+		};
+
+		var httpMessageHandlerMock = new MockHttpMessageHandler();
+		httpMessageHandlerMock.Expect("v1:validateAddress")
+							  .Respond(HttpStatusCode.BadRequest, "application/json", JsonSerializer.Serialize(error));
+
+		var httpClient = httpMessageHandlerMock.ToHttpClient();
+
+		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var service = new AddressValidationService(client, requestValidator, responseValidator);
+
+		var response = await service.ValidateAsync(request);
+
+		mockLogger.VerifyLoggingCall(LogLevel.Error, "BadRequest: Address is missing from request.");
+		
+		Assert.Null(response);
+	}
+
+	[Fact]
+	public async Task Validate_CityState_Success()
+	{
+		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
+
+		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "CityStateResponse.json"));
+
+		var requestValidator = new AddressValidationRequestValidator();
+		var responseValidator = new ApiAddressValidationResponseValidator();
 
 		// Singapore Post (North East)
 		var request = new AddressValidationRequest
@@ -34,16 +78,19 @@ public sealed class AddressValidationServiceFacts
 			Country = CountryCode.SG
 		};
 
-		clientMock.Setup(s => s.ValidateAddressAsync(request,
-													 It.IsAny<CancellationToken>()))
-				  .ReturnsAsync(() => new ApiResponse<ApiAddressValidationResponse>(new HttpResponseMessage
-				   {
-					   StatusCode = HttpStatusCode.OK
-				   }, JsonSerializer.Deserialize<ApiAddressValidationResponse>(json), null!));
+		var httpMessageHandlerMock = new MockHttpMessageHandler();
+		httpMessageHandlerMock.Expect("v1:validateAddress")
+							  .WithJsonContent(request)
+							  .Respond("application/json", json);
+
+		var httpClient = httpMessageHandlerMock.ToHttpClient();
+
+		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var service = new AddressValidationService(client, requestValidator, responseValidator);
 
 		var response = await service.ValidateAsync(request);
 
-		clientMock.Verify(v => v.ValidateAddressAsync(request, default), Times.Once);
+		mockLogger.VerifyLoggingCall(LogLevel.Error, Times.Never());
 
 		Assert.NotNull(response);
 
@@ -60,13 +107,12 @@ public sealed class AddressValidationServiceFacts
 	[Fact]
 	public async Task Validate_Default_Success()
 	{
-		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "DefaultResponse.json"));
+		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
 
-		var clientMock = new Mock<IAddressValidationClient>();
+		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "DefaultResponse.json"));
 
 		var requestValidator = new AddressValidationRequestValidator();
 		var responseValidator = new ApiAddressValidationResponseValidator();
-		var service = new AddressValidationService(clientMock.Object, requestValidator, responseValidator);
 
 		// Google US
 		var request = new AddressValidationRequest
@@ -81,16 +127,19 @@ public sealed class AddressValidationServiceFacts
 			Country = CountryCode.US
 		};
 
-		clientMock.Setup(s => s.ValidateAddressAsync(request,
-													 It.IsAny<CancellationToken>()))
-				  .ReturnsAsync(() => new ApiResponse<ApiAddressValidationResponse>(new HttpResponseMessage
-				   {
-					   StatusCode = HttpStatusCode.OK
-				   }, JsonSerializer.Deserialize<ApiAddressValidationResponse>(json), null!));
+		var httpMessageHandlerMock = new MockHttpMessageHandler();
+		httpMessageHandlerMock.Expect("v1:validateAddress")
+							  .WithJsonContent(request)
+							  .Respond("application/json", json);
+
+		var httpClient = httpMessageHandlerMock.ToHttpClient();
+
+		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var service = new AddressValidationService(client, requestValidator, responseValidator);
 
 		var response = await service.ValidateAsync(request);
 
-		clientMock.Verify(v => v.ValidateAddressAsync(request, default), Times.Once);
+		mockLogger.VerifyLoggingCall(LogLevel.Error, Times.Never());
 
 		Assert.NotNull(response);
 

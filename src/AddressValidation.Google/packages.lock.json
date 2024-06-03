@@ -58,25 +58,27 @@
           "Microsoft.SourceLink.Common": "8.0.0"
         }
       },
-      "Refit": {
+      "RichardSzalay.MockHttp": {
         "type": "Direct",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "MeOXucNjebiLiOM+hM4niN2cWLlwaQWNCGZs0LDUEoCVwOtV/IWOMOqlAbUeb8Y0/iOgMai2g6Gz9M/d6V7gtA==",
+        "requested": "(, )",
+        "resolved": "1.0.1",
+        "contentHash": "uYXgG7AemGeSHKLTWHxafecxdjsD3zoTucsvg6wCN81JpVqakkoGIpAhW8B4mBlaOcc2qSlXSir3Tc9axC+Gfw==",
         "dependencies": {
-          "System.Net.Http.Json": "7.0.1",
-          "System.Text.Json": "7.0.3"
+          "Microsoft.Net.Http": "2.1.10"
         }
       },
-      "Refit.HttpClientFactory": {
-        "type": "Direct",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "27zuHqcN2BJbNqGF0OlUAPEKNnPFibJVHsS5XnViS2Brw1ceCbzYsDqP19dlgWCb/sLGFxSpRWhkCimOo8jljw==",
+      "Microsoft.Bcl": {
+        "type": "Transitive",
+        "resolved": "1.0.19",
+        "contentHash": "xkJbphYvH4hQTH59/ORWV+2kIOJ0UM3iSA0NkcLAqyrRM0kYGxp8uDvzCi58LNvRlE5wYwWR3tQPiiqhM7nLzQ==",
         "dependencies": {
-          "Microsoft.Extensions.Http": "7.0.0",
-          "Refit": "7.0.0"
+          "Microsoft.Bcl.Build": "1.0.4"
         }
+      },
+      "Microsoft.Bcl.Build": {
+        "type": "Transitive",
+        "resolved": "1.0.4",
+        "contentHash": "y4VTyK0H1QRKi8O6+/od06Jc+eyY9x+6uDdMPAzjbeX5XL05qAce5lyQlMtcMzlQbu0UOQ/czbjsnjM+2Buq1w=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -180,6 +182,15 @@
         "resolved": "8.0.0",
         "contentHash": "bXJEZrW9ny8vjMF1JV253WeLhpEVzFo1lyaZu1vQ4ZxWUlVvknZ/+ftFgVheLubb4eZPSwwxBeqS1JkCOjxd8g=="
       },
+      "Microsoft.Net.Http": {
+        "type": "Transitive",
+        "resolved": "2.1.10",
+        "contentHash": "6moiNdVxBDxxxrFAER6uAXlouGLaPM+LuZJMnAYlfNYIySJBh+zRiF9XiiIdWuh60nW6wP4shu4DaqBbVdOQsA==",
+        "dependencies": {
+          "Microsoft.Bcl": "1.0.19",
+          "Microsoft.Bcl.Build": "1.0.4"
+        }
+      },
       "Microsoft.SourceLink.Common": {
         "type": "Transitive",
         "resolved": "8.0.0",
@@ -202,27 +213,6 @@
         "type": "Transitive",
         "resolved": "8.0.0",
         "contentHash": "c9xLpVz6PL9lp/djOWtk5KPDZq3cSYpmXoJQY524EOtuFl5z9ZtsotpsyrDW40U1DRnQSYvcPKEUV0X//u6gkQ=="
-      },
-      "System.Net.Http.Json": {
-        "type": "Transitive",
-        "resolved": "7.0.1",
-        "contentHash": "ni8+BJnndbJI9AXme/qCYXg1s4RpdRJx3gKp5WzcWuLt4l3syuscgk5Becis6x4E7HbQk4z6A7FNXFQD75F+wQ==",
-        "dependencies": {
-          "System.Text.Json": "7.0.2"
-        }
-      },
-      "System.Text.Encodings.Web": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "OP6umVGxc0Z0MvZQBVigj4/U31Pw72ITihDWP9WiWDm+q5aoe0GaJivsfYGq53o6dxH7DcXWiCTl7+0o2CGdmg=="
-      },
-      "System.Text.Json": {
-        "type": "Transitive",
-        "resolved": "7.0.3",
-        "contentHash": "AyjhwXN1zTFeIibHimfJn6eAsZ7rTBib79JQpzg8WAuR/HKDu9JGNHTuu3nbbXQ/bgI+U4z6HtZmCHNXB1QXrQ==",
-        "dependencies": {
-          "System.Text.Encodings.Web": "7.0.0"
-        }
       },
       "addressvalidation": {
         "type": "Project",

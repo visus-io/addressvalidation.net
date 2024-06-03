@@ -1,7 +1,6 @@
 namespace AddressValidation.Google.Extensions;
 
 using System.Diagnostics.CodeAnalysis;
-using Abstractions;
 using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
@@ -9,15 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
-using Refit;
 using Validation;
 
 public static class ServiceCollectionExtensions
 {
-	private const string GoogleAddressValidationApi = "GoogleAddressValidationApi";
-
-	private static readonly Uri GoogleAddressValidationBaseUri = new("https://addressvalidation.googleapis.com");
-
 	private const int TransientRetryCount = 3;
 
 	public static IServiceCollection AddGoogleAddressValidationHttpClient(this IServiceCollection services)
@@ -30,11 +24,7 @@ public static class ServiceCollectionExtensions
 
 		services.AddTransient<IAddressValidationRequest, AddressValidationRequest>();
 
-		services.AddHttpClient(GoogleAddressValidationApi,
-							   client => client.BaseAddress = GoogleAddressValidationBaseUri);
-
-		services.AddRefitClient<IAddressValidationClient>()
-				.ConfigureHttpClient(client => client.BaseAddress = GoogleAddressValidationBaseUri)
+		services.AddHttpClient<AddressValidationClient>()
 				.AddPolicyHandler((provider, _) => GetHttpRetryPolicy(provider.GetRequiredService<ILogger>()))
 				.AddHttpMessageHandler<ApiKeyDelegateHandler>();
 

@@ -16,22 +16,24 @@ internal sealed class ApiAddressValidationResponseValidator : AbstractValidator<
 
 	public ApiAddressValidationResponseValidator()
 	{
-		When(w => !_unverifiableGranularity.Contains(w.Result.Verdict.ValidationGranularity),
+		When(w => w is not null,
 			 () =>
 			 {
 				 RuleFor(r => r.Result.Verdict.ValidationGranularity)
-					.Must(m => m != Granularity.PREMISE_PROXIMITY)
-					.WithSeverity(Severity.Warning)
-					.WithMessage("1"); // TODO: Message about partially verified
+					.Must(m => !_unverifiableGranularity.Contains(m))
+					.WithMessage("2"); // TODO: Message about unverified 
 
-				 RuleForEach(r => r.Result.Address.AddressComponents)
-					.SetValidator(new AddressComponentValidator());
-			 })
-		   .Otherwise(() =>
+				 When(w => !_unverifiableGranularity.Contains(w.Result.Verdict.ValidationGranularity),
+					  () =>
 					  {
 						  RuleFor(r => r.Result.Verdict.ValidationGranularity)
-							 .Must(m => !_unverifiableGranularity.Contains(m))
-							 .WithMessage("2"); // TODO: Message about unverified 
+							 .Must(m => m != Granularity.PREMISE_PROXIMITY)
+							 .WithSeverity(Severity.Warning)
+							 .WithMessage("1"); // TODO: Message about partially verified
+
+						  RuleForEach(r => r.Result.Address.AddressComponents)
+							 .SetValidator(new AddressComponentValidator());
 					  });
+			 });
 	}
 }

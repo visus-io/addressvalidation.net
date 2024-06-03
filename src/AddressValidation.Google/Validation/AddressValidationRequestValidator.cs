@@ -56,12 +56,6 @@ internal sealed class AddressValidationRequestValidator : AbstractAddressValidat
 				 RuleFor(r => r.Country)
 					.Must(m => _supportedRegions.Contains(m!.Value))
 					.WithMessage("The country '{PropertyValue}' is not supported by the Google Address Validation API.");
-			 })
-		   .Otherwise(() =>
-					  {
-						  RuleFor(r => r.Country)
-							 .NotNull()
-							 .NotEqual(CountryCode.ZZ);
-					  });
+			 });
 	}
 }

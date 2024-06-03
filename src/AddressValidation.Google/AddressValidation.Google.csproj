@@ -17,8 +17,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Refit"/>
-        <PackageReference Include="Refit.HttpClientFactory"/>
+        <PackageReference Include="RichardSzalay.MockHttp" />
     </ItemGroup>
 
     <ItemGroup>
