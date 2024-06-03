@@ -37,12 +37,6 @@ public abstract class AbstractAddressValidationRequestValidator<T> : AbstractVal
 					.WithMessage("The country '{PropertyValue}' is currently not supported for address validation.");
 
 				 RuleForEach(r => r.AddressLines).NotEmpty();
-			 })
-		   .Otherwise(() =>
-					  {
-						  RuleFor(r => r.Country)
-							 .NotNull()
-							 .NotEqual(CountryCode.ZZ);
-					  });
+			 });
 	}
 }
