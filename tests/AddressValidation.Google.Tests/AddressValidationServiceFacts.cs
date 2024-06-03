@@ -3,12 +3,12 @@ namespace AddressValidation.Google.Tests;
 using System.Net;
 using System.Text.Json;
 using AddressValidation.Abstractions;
-using Extensions;
 using Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RichardSzalay.MockHttp;
 using Services;
+using Shared.Tests.Extensions;
 using Validation;
 
 public sealed class AddressValidationServiceFacts
@@ -53,7 +53,7 @@ public sealed class AddressValidationServiceFacts
 		var response = await service.ValidateAsync(request);
 
 		mockLogger.VerifyLoggingCall(LogLevel.Error, "BadRequest: Address is missing from request.");
-		
+
 		Assert.Null(response);
 	}
 

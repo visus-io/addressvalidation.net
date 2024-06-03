@@ -1,9 +1,9 @@
-namespace AddressValidation.Google.Tests.Extensions;
+namespace AddressValidation.Shared.Tests.Extensions;
 
 using Microsoft.Extensions.Logging;
 using Moq;
 
-internal static class MockExtensions
+public static class MockExtensions
 {
 	public static Mock<ILogger<T>> VerifyLoggingCall<T>(this Mock<ILogger<T>> logger, LogLevel logLevel)
 	{
