@@ -5,6 +5,7 @@ using AddressValidation.Abstractions;
 using FluentValidation;
 using Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
@@ -22,7 +23,7 @@ public static class ServiceCollectionExtensions
 	private const int TransientRetryCount = 3;
 
 	/// <summary>
-	///     Adds the <see cref="IAddressValidationService{TRequest}" /> and related services to the
+	///     Adds <see cref="IAddressValidationService{TRequest}" /> and related services to the
 	///     <see cref="IServiceCollection" />.
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
@@ -31,9 +32,9 @@ public static class ServiceCollectionExtensions
 	{
 		ArgumentNullException.ThrowIfNull(services);
 
-		services.AddScoped<IValidator<GoogleAddressValidationRequest>, AddressValidationRequestValidator>();
-		services.AddScoped<IAddressValidationRequest, GoogleAddressValidationRequest>();
-		services.AddScoped<IAddressValidationService<GoogleAddressValidationRequest>, AddressValidationService>();
+		services.TryAddScoped<IValidator<GoogleAddressValidationRequest>, AddressValidationRequestValidator>();
+		services.TryAddScoped<IAddressValidationRequest, GoogleAddressValidationRequest>();
+		services.TryAddScoped<IAddressValidationService<GoogleAddressValidationRequest>, AddressValidationService>();
 
 		services.AddTransient<ApiKeyDelegateHandler>();
 
