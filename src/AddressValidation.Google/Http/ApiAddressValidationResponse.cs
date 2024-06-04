@@ -9,8 +9,6 @@ using Model;
 
 internal sealed class ApiAddressValidationResponse : IApiAddressValidationResponse
 {
-	public Guid Id { get; } = Guid.NewGuid();
-
 	[JsonPropertyName("responseId")]
 	public string ResponseId { get; init; } = null!;
 

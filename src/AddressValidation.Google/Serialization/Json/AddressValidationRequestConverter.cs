@@ -4,6 +4,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Http;
 
+/// <summary>
+///     Converts an <see cref="GoogleAddressValidationRequest" /> object to and from json.
+/// </summary>
 public sealed class AddressValidationRequestConverter : JsonConverter<GoogleAddressValidationRequest?>
 {
 	private const string AddressLinesPropertyName = "addressLines";
@@ -15,7 +18,7 @@ public sealed class AddressValidationRequestConverter : JsonConverter<GoogleAddr
 	private const string RegionCodePropertyName = "regionCode";
 
 	/// <inheritdoc />
-	public override GoogleAddressValidationRequest? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	public override GoogleAddressValidationRequest Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		throw new NotImplementedException();
 	}

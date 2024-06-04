@@ -5,13 +5,13 @@ using Http;
 
 internal sealed class AddressValidationResponse : AbstractAddressValidationResponse<ApiAddressValidationResponse>
 {
-	public AddressValidationResponse(ApiAddressValidationResponse addressValidationResponse, ValidationResult? validationResult)
-		: base(addressValidationResponse, validationResult)
+	public AddressValidationResponse(ApiAddressValidationResponse response, ValidationResult? validationResult)
+		: base(response, validationResult)
 	{
-		AddressLines = addressValidationResponse.Result.Address.PostalAddress.AddressLines;
-		CityOrTown = addressValidationResponse.Result.Address.PostalAddress.Locality;
-		Country = addressValidationResponse.Result.Address.PostalAddress.RegionCode;
-		PostalCode = addressValidationResponse.Result.Address.PostalAddress.PostalCode;
-		StateOrProvince = addressValidationResponse.Result.Address.PostalAddress.AdministrativeArea;
+		AddressLines = response.Result.Address.PostalAddress.AddressLines;
+		CityOrTown = response.Result.Address.PostalAddress.Locality;
+		Country = response.Result.Address.PostalAddress.RegionCode;
+		PostalCode = response.Result.Address.PostalAddress.PostalCode;
+		StateOrProvince = response.Result.Address.PostalAddress.AdministrativeArea;
 	}
 }

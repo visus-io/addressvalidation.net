@@ -12,12 +12,21 @@ using Polly.Extensions.Http;
 using Services;
 using Validation;
 
+/// <summary>
+///     Extension methods for setting up Google Address Validation services in an <see cref="IServiceCollection" />.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
 	private const string LoggingCategoryName = "AddressValidation.Google";
 
 	private const int TransientRetryCount = 3;
 
+	/// <summary>
+	///     Adds the <see cref="IAddressValidationService{TRequest}" /> and related services to the
+	///     <see cref="IServiceCollection" />.
+	/// </summary>
+	/// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
+	/// <returns>The same service collection so that multiple calls can be chained.</returns>
 	public static IServiceCollection AddGoogleAddressValidation(this IServiceCollection services)
 	{
 		ArgumentNullException.ThrowIfNull(services);
@@ -55,10 +64,10 @@ public static class ServiceCollectionExtensions
 														  {
 															  return;
 														  }
-														  
-														  logger.LogError("Retry {retries} for {policy} failed due to {exception}.", 
-																		  retries, 
-																		  context.PolicyKey, 
+
+														  logger.LogError("Retry {retries} for {policy} failed due to {exception}.",
+																		  retries,
+																		  context.PolicyKey,
 																		  exception);
 													  })
 								   .WithPolicyKey($"{LoggingCategoryName}.HttpRetryPolicy");

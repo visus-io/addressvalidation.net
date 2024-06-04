@@ -10,7 +10,7 @@ internal sealed class AddressValidationService(
 	: AbstractAddressValidationService<GoogleAddressValidationRequest, ApiAddressValidationResponse>(requestValidator, responseValidator)
 {
 	private readonly AddressValidationClient _client = client ?? throw new ArgumentNullException(nameof(client));
-
+	
 	protected override async ValueTask<ApiAddressValidationResponse?> SendAsync(GoogleAddressValidationRequest request, CancellationToken cancellationToken)
 	{
 		return await _client.ValidateAddressAsync(request, cancellationToken);

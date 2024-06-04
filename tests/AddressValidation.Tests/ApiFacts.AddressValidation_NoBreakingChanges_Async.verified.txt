@@ -34,7 +34,7 @@ namespace AddressValidation
     public abstract class AbstractAddressValidationResponse<TResponse> : AddressValidation.AbstractAddressValidationResponse
         where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
     {
-        protected AbstractAddressValidationResponse(TResponse addressValidationResponse, FluentValidation.Results.ValidationResult? validationResult) { }
+        protected AbstractAddressValidationResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
     }
     public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AddressValidation.AbstractAddressValidationResponse<TResponse>
         where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
@@ -49,6 +49,12 @@ namespace AddressValidation
         protected AbstractAddressValidationService(FluentValidation.IValidator<TRequest> requestValidator, FluentValidation.IValidator<TResponse> responseValidator) { }
         protected abstract System.Threading.Tasks.ValueTask<TResponse?> SendAsync(TRequest request, System.Threading.CancellationToken cancellationToken);
         public System.Threading.Tasks.ValueTask<AddressValidation.Abstractions.IAddressValidationResponse?> ValidateAsync(TRequest request, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+    public class InvalidImplementationException : System.Exception
+    {
+        public InvalidImplementationException() { }
+        public InvalidImplementationException(string message) { }
+        public InvalidImplementationException(string message, System.Exception innerException) { }
     }
 }
 namespace AddressValidation.Abstractions
@@ -590,7 +596,6 @@ namespace AddressValidation.Http.Abstractions
 {
     public interface IApiAddressValidationResponse
     {
-        System.Guid Id { get; }
         AddressValidation.Abstractions.IAddressValidationResponse ToAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResult);
     }
 }
@@ -607,7 +612,7 @@ namespace AddressValidation.Model
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class EmptyAddressValidationResponse : AddressValidation.Abstractions.IAddressValidationResponse
     {
-        public EmptyAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResults) { }
+        public EmptyAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResult) { }
         public System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; }
         public string? CityOrTown { get; }
         public AddressValidation.Abstractions.CountryCode Country { get; }

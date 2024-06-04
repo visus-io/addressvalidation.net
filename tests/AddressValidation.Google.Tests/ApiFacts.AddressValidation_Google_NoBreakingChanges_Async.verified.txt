@@ -22,7 +22,7 @@ namespace AddressValidation.Google.Serialization.Json
     public sealed class AddressValidationRequestConverter : System.Text.Json.Serialization.JsonConverter<AddressValidation.Google.Http.GoogleAddressValidationRequest?>
     {
         public AddressValidationRequestConverter() { }
-        public override AddressValidation.Google.Http.GoogleAddressValidationRequest? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) { }
+        public override AddressValidation.Google.Http.GoogleAddressValidationRequest Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) { }
         public override void Write(System.Text.Json.Utf8JsonWriter writer, AddressValidation.Google.Http.GoogleAddressValidationRequest? value, System.Text.Json.JsonSerializerOptions options) { }
     }
 }

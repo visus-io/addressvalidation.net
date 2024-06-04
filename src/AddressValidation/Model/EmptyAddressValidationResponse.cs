@@ -6,25 +6,34 @@ using Abstractions;
 using FluentValidation;
 using FluentValidation.Results;
 
-/// <inheritdoc />
+/// <summary>
+///     Represents an empty validation response
+/// </summary>
 [ExcludeFromCodeCoverage]
 public sealed class EmptyAddressValidationResponse : IAddressValidationResponse
 {
-	public EmptyAddressValidationResponse(ValidationResult? validationResults)
+	/// <summary>
+	///     Initializes a new instance of the <see cref="EmptyAddressValidationResponse" /> class.
+	/// </summary>
+	/// <param name="validationResult">
+	///     Current validation state of the response represented as an instance of
+	///     <see cref="ValidationResult" />.
+	/// </param>
+	public EmptyAddressValidationResponse(ValidationResult? validationResult)
 	{
-		if ( validationResults is null )
+		if ( validationResult is null )
 		{
 			return;
 		}
 
-		Errors = validationResults.Errors
+		Errors = validationResult.Errors
 								  .Where(w => w.Severity == Severity.Error)
 								  .Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
 								  .Distinct()
 								  .ToList()
 								  .AsReadOnly();
 
-		Warnings = validationResults.Errors
+		Warnings = validationResult.Errors
 									.Where(w => w.Severity == Severity.Warning)
 									.Select(s => !string.IsNullOrWhiteSpace(s.ErrorCode) ? $"{s.ErrorCode}: {s.ErrorMessage}" : $"{s.ErrorMessage}")
 									.Distinct()
@@ -42,7 +51,7 @@ public sealed class EmptyAddressValidationResponse : IAddressValidationResponse
 	public CountryCode Country => CountryCode.ZZ;
 
 	/// <inheritdoc />
-	public IReadOnlyCollection<string> Errors { get; }
+	public IReadOnlyCollection<string> Errors { get; } = ReadOnlyObservableCollection<string>.Empty;
 
 	/// <inheritdoc />
 	public string? PostalCode => null;
@@ -54,5 +63,5 @@ public sealed class EmptyAddressValidationResponse : IAddressValidationResponse
 	public IReadOnlyCollection<IAddressValidationResponse> Suggestions => ReadOnlyCollection<IAddressValidationResponse>.Empty;
 
 	/// <inheritdoc />
-	public IReadOnlyCollection<string> Warnings { get; }
+	public IReadOnlyCollection<string> Warnings { get; } = ReadOnlyObservableCollection<string>.Empty;
 }
