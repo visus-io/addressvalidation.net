@@ -40,20 +40,28 @@ public static class ServiceCollectionExtensions
 	{
 		return HttpPolicyExtensions.HandleTransientHttpError()
 								   .WaitAndRetryAsync(TransientRetryCount,
-													  retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-													  (exception, _, retries, context) =>
+													  retryAttempt => TimeSpan.FromSeconds(Math.Pow(5, retryAttempt)),
+													  (exception, timeSpan, retries, context) =>
 													  {
+														  if ( retries < TransientRetryCount )
+														  {
+															  logger.LogWarning("Retry {retry} for {policy} delayed by {delay}ms.",
+																				retries,
+																				context.PolicyKey,
+																				timeSpan.TotalMilliseconds);
+														  }
+
 														  if ( TransientRetryCount != retries )
 														  {
 															  return;
 														  }
-
-														  string message = $"#Polly #WaitAndRetryAsync Retry {retries}" +
-																		   $"of {context.PolicyKey}" +
-																		   $"due to: {exception}";
-
-														  logger.LogError("{message}", message);
-													  });
+														  
+														  logger.LogError("Retry {retries} for {policy} failed due to {exception}.", 
+																		  retries, 
+																		  context.PolicyKey, 
+																		  exception);
+													  })
+								   .WithPolicyKey($"{LoggingCategoryName}.HttpRetryPolicy");
 	}
 
 	[ExcludeFromCodeCoverage]
