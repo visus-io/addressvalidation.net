@@ -595,16 +595,8 @@ namespace AddressValidation.Http
 namespace AddressValidation.Model
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public sealed class EmptyAddressValidationResponse : AddressValidation.Abstractions.IAddressValidationResponse
+    public sealed class EmptyAddressValidationResponse : AddressValidation.AbstractAddressValidationResponse
     {
         public EmptyAddressValidationResponse(FluentValidation.Results.ValidationResult? validationResult) { }
-        public System.Collections.Generic.IReadOnlyCollection<string> AddressLines { get; }
-        public string? CityOrTown { get; }
-        public AddressValidation.Abstractions.CountryCode Country { get; }
-        public System.Collections.Generic.IReadOnlyCollection<string> Errors { get; }
-        public string? PostalCode { get; }
-        public string? StateOrProvince { get; }
-        public System.Collections.Generic.IReadOnlyCollection<AddressValidation.Abstractions.IAddressValidationResponse> Suggestions { get; }
-        public System.Collections.Generic.IReadOnlyCollection<string> Warnings { get; }
     }
 }
