@@ -87,10 +87,5 @@ jobs:
         with:
           name: Test Results
           path: ${{ runner.temp }}/TestResults/*.trx
-          reporter: dotnet-trx
-      - name: Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          files: ${{ runner.temp }}/coverage.opencover.xml
-          token: ${{ secrets.CODECOV_TOKEN }}          
+          reporter: dotnet-trx      
           

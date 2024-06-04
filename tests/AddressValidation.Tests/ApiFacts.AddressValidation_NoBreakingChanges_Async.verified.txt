@@ -36,12 +36,6 @@ namespace AddressValidation
     {
         protected AbstractAddressValidationResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
     }
-    public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AddressValidation.AbstractAddressValidationResponse<TResponse>
-        where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse
-        where TSuggestion :  class, new ()
-    {
-        protected AbstractAddressValidationResponse(TResponse response, FluentValidation.Results.ValidationResult? validationResult) { }
-    }
     public abstract class AbstractAddressValidationService<TRequest, TResponse> : AddressValidation.Abstractions.IAddressValidationService<TRequest>
         where TRequest : AddressValidation.AbstractAddressValidationRequest
         where TResponse : AddressValidation.Http.Abstractions.IApiAddressValidationResponse

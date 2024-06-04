@@ -82,24 +82,3 @@ public abstract class AbstractAddressValidationResponse<TResponse> : AbstractAdd
 	{
 	}
 }
-
-/// <inheritdoc />
-public abstract class AbstractAddressValidationResponse<TResponse, TSuggestion> : AbstractAddressValidationResponse<TResponse>
-	where TResponse : IApiAddressValidationResponse
-	where TSuggestion : class, new()
-{
-	private readonly List<IAddressValidationResponse> _suggestions = [];
-
-	/// <summary>
-	///     Initializes a new instance of <see cref="AbstractAddressValidationResponse{T}" />.
-	/// </summary>
-	/// <param name="response">An instance of <typeparamref name="TResponse" /> returned by the underlying api service.</param>
-	/// <param name="validationResult">
-	///     Current validation state (if any) of the response represented as an instance of
-	///     <see cref="ValidationResult" />.
-	/// </param>
-	protected AbstractAddressValidationResponse(TResponse response, ValidationResult? validationResult)
-		: base(response, validationResult)
-	{
-	}
-}

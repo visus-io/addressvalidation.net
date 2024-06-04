@@ -41,13 +41,13 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 	protected AbstractAddressValidationService(IValidator<TRequest> requestValidator,
 											   IValidator<TResponse> responseValidator)
 	{
+		_requestValidator = requestValidator ?? throw new ArgumentNullException(nameof(requestValidator));
+		_responseValidator = responseValidator ?? throw new ArgumentNullException(nameof(responseValidator));
+		
 		if ( !requestValidator.GetType().IsSubclassOf(typeof(AbstractAddressValidationRequestValidator<TRequest>)) )
 		{
 			throw new InvalidImplementationException($"{nameof(requestValidator)} must implement {nameof(AbstractAddressValidationRequestValidator<TRequest>)}");
 		}
-
-		_requestValidator = requestValidator ?? throw new ArgumentNullException(nameof(requestValidator));
-		_responseValidator = responseValidator ?? throw new ArgumentNullException(nameof(responseValidator));
 	}
 
 	/// <inheritdoc />
@@ -74,7 +74,7 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 		ValidationResult? requestValidationResult = await _requestValidator.ValidateAsync(request, cancellationToken);
 		if ( requestValidationResult is not null &&
 			 !requestValidationResult.IsValid &&
-			 requestValidationResult.Errors.Any(a => a.Severity == Severity.Error) )
+			 requestValidationResult.Errors.Exists(e => e.Severity == Severity.Error) )
 		{
 			return new EmptyAddressValidationResponse(requestValidationResult);
 		}
@@ -88,7 +88,7 @@ public abstract class AbstractAddressValidationService<TRequest, TResponse> : IA
 		ValidationResult? responseValidationResult = await _responseValidator.ValidateAsync(response, cancellationToken);
 		if ( responseValidationResult is not null &&
 			 !responseValidationResult.IsValid &&
-			 responseValidationResult.Errors.Any(a => a.Severity == Severity.Error) )
+			 responseValidationResult.Errors.Exists(e => e.Severity == Severity.Error) )
 		{
 			return new EmptyAddressValidationResponse(requestValidationResult);
 		}
