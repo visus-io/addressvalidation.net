@@ -31,20 +31,20 @@ jobs:
           fetch-depth: 0
           show-progress: false
       - name: NuGet Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: ${{ runner.os}}-nuget
       - name: SonarCloud Packages Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar   
       - name: SonarCloud Scanner Cache
         id: cache-sonar-scanner
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
