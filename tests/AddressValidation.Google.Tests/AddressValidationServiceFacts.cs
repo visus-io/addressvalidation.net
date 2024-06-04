@@ -16,7 +16,7 @@ public sealed class AddressValidationServiceFacts
 	[Fact]
 	public async Task Validate_BadRequest_Logged()
 	{
-		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
+		var mockLogger = new Mock<ILogger<GoogleAddressValidationClient>>();
 
 		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "ErrorResponse.json"));
 		
@@ -43,7 +43,7 @@ public sealed class AddressValidationServiceFacts
 
 		var httpClient = httpMessageHandlerMock.ToHttpClient();
 
-		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var client = new GoogleAddressValidationClient(httpClient, mockLogger.Object);
 		var service = new AddressValidationService(client, requestValidator, responseValidator);
 
 		var response = await service.ValidateAsync(request);
@@ -56,7 +56,7 @@ public sealed class AddressValidationServiceFacts
 	[Fact]
 	public async Task Validate_CityState_Success()
 	{
-		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
+		var mockLogger = new Mock<ILogger<GoogleAddressValidationClient>>();
 
 		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "CityStateResponse.json"));
 
@@ -81,7 +81,7 @@ public sealed class AddressValidationServiceFacts
 
 		var httpClient = httpMessageHandlerMock.ToHttpClient();
 
-		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var client = new GoogleAddressValidationClient(httpClient, mockLogger.Object);
 		var service = new AddressValidationService(client, requestValidator, responseValidator);
 
 		var response = await service.ValidateAsync(request);
@@ -103,7 +103,7 @@ public sealed class AddressValidationServiceFacts
 	[Fact]
 	public async Task Validate_Default_Success()
 	{
-		var mockLogger = new Mock<ILogger<AddressValidationClient>>();
+		var mockLogger = new Mock<ILogger<GoogleAddressValidationClient>>();
 
 		var json = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fixtures", "DefaultResponse.json"));
 
@@ -130,7 +130,7 @@ public sealed class AddressValidationServiceFacts
 
 		var httpClient = httpMessageHandlerMock.ToHttpClient();
 
-		var client = new AddressValidationClient(httpClient, mockLogger.Object);
+		var client = new GoogleAddressValidationClient(httpClient, mockLogger.Object);
 		var service = new AddressValidationService(client, requestValidator, responseValidator);
 
 		var response = await service.ValidateAsync(request);

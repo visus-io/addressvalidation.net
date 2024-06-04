@@ -1,13 +1,12 @@
 namespace AddressValidation;
 
-using Abstractions;
 using FluentValidation;
 
 /// <summary>
-///     Base Validator for <see cref="IAddressValidationRequest" /> instances.
+///     Base Validator for <see cref="AbstractAddressValidationRequest" /> instances.
 /// </summary>
 public abstract class AbstractAddressValidationRequestValidator<T> : AbstractValidator<T>
-	where T : IAddressValidationRequest
+	where T : AbstractAddressValidationRequest
 {
 	/// <summary>
 	///     Initializes a new instance of <see cref="AbstractAddressValidationRequestValidator{T}" />.
@@ -16,7 +15,7 @@ public abstract class AbstractAddressValidationRequestValidator<T> : AbstractVal
 	protected AbstractAddressValidationRequestValidator()
 	{
 		RuleFor(r => r.Country).NotNull();
-		
+
 		When(w => w.Country is not null,
 			 () =>
 			 {

@@ -3,15 +3,15 @@ namespace AddressValidation.Google.Http;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 
-internal sealed class AddressValidationClient
+internal sealed class GoogleAddressValidationClient
 {
 	private static readonly Uri GoogleAddressValidationBaseUri = new("https://addressvalidation.googleapis.com");
 
 	private readonly HttpClient _httpClient;
 
-	private readonly ILogger<AddressValidationClient> _logger;
+	private readonly ILogger<GoogleAddressValidationClient> _logger;
 
-	public AddressValidationClient(HttpClient httpClient, ILogger<AddressValidationClient> logger)
+	public GoogleAddressValidationClient(HttpClient httpClient, ILogger<GoogleAddressValidationClient> logger)
 	{
 		_httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
 		_logger = logger ?? throw new ArgumentNullException(nameof(logger));

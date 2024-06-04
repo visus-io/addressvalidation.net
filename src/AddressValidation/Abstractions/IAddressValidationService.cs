@@ -5,7 +5,7 @@ namespace AddressValidation.Abstractions;
 /// </summary>
 /// <typeparam name="TRequest">The request that will be used for validation.</typeparam>
 public interface IAddressValidationService<in TRequest>
-	where TRequest : IAddressValidationRequest
+	where TRequest : AbstractAddressValidationRequest
 {
 	/// <summary>
 	///     Validates the <paramref name="request" /> instance asynchronously.

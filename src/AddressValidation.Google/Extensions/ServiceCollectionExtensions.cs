@@ -33,12 +33,12 @@ public static class ServiceCollectionExtensions
 		ArgumentNullException.ThrowIfNull(services);
 
 		services.TryAddScoped<IValidator<GoogleAddressValidationRequest>, AddressValidationRequestValidator>();
-		services.TryAddScoped<IAddressValidationRequest, GoogleAddressValidationRequest>();
+		services.TryAddScoped<IValidator<ApiAddressValidationResponse>, ApiAddressValidationResponseValidator>();
 		services.TryAddScoped<IAddressValidationService<GoogleAddressValidationRequest>, AddressValidationService>();
 
 		services.AddTransient<ApiKeyDelegateHandler>();
 
-		services.AddHttpClient<AddressValidationClient>()
+		services.AddHttpClient<GoogleAddressValidationClient>()
 				.AddPolicyHandler((provider, _) => GetHttpRetryPolicy(GetLoggerInstance(provider)))
 				.AddHttpMessageHandler<ApiKeyDelegateHandler>();
 
