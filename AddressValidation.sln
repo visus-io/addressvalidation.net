@@ -10,18 +10,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation", "src\AddressValidation\AddressValidation.csproj", "{64B9D329-F983-49D5-A73F-C5EA8B1F16A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Abstractions", "src\AddressValidation.Abstractions\AddressValidation.Abstractions.csproj", "{0FE11DEC-98E1-4583-A794-D4010D226537}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Foundation", "01. Foundation", "{7EF92B20-2457-4E9A-AF09-610675F68F62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Integrations", "02. Integrations", "{458D4B81-3659-4CDC-82E6-F0AC7DA1383D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Google", "src\AddressValidation.Google\AddressValidation.Google.csproj", "{5BECB362-2B3C-454E-BA26-F3287B237223}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5FDF21B9-CFE1-4180-A903-A202BD8F2CDF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Unit Tests", "03. Unit Tests", "{6D41E71C-E6E0-4BE8-934C-6E6E88C3F8C7}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Packages.props = tests\Directory.Packages.props
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Tests", "tests\AddressValidation.Tests\AddressValidation.Tests.csproj", "{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Google.Tests", "tests\AddressValidation.Google.Tests\AddressValidation.Google.Tests.csproj", "{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{353B6DBC-61C8-4FEF-8182-C5B36A3B4818}"
 	ProjectSection(SolutionItems) = preProject
 		.github\dependabot.yml = .github\dependabot.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F5F81E7B-F1BF-4C3A-8D56-6D4A486D687C}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Shared.Tests", "tests\AddressValidation.Shared.Tests\AddressValidation.Shared.Tests.csproj", "{81095EE1-16FF-44A7-9550-B9989DD119BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,19 +48,30 @@ Global
 		{64B9D329-F983-49D5-A73F-C5EA8B1F16A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B9D329-F983-49D5-A73F-C5EA8B1F16A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B9D329-F983-49D5-A73F-C5EA8B1F16A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FE11DEC-98E1-4583-A794-D4010D226537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FE11DEC-98E1-4583-A794-D4010D226537}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FE11DEC-98E1-4583-A794-D4010D226537}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FE11DEC-98E1-4583-A794-D4010D226537}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BECB362-2B3C-454E-BA26-F3287B237223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5BECB362-2B3C-454E-BA26-F3287B237223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BECB362-2B3C-454E-BA26-F3287B237223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BECB362-2B3C-454E-BA26-F3287B237223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F5AE68-6E31-478A-80D3-8A1E3881DDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81095EE1-16FF-44A7-9550-B9989DD119BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81095EE1-16FF-44A7-9550-B9989DD119BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81095EE1-16FF-44A7-9550-B9989DD119BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81095EE1-16FF-44A7-9550-B9989DD119BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{64B9D329-F983-49D5-A73F-C5EA8B1F16A9} = {7EF92B20-2457-4E9A-AF09-610675F68F62}
-		{0FE11DEC-98E1-4583-A794-D4010D226537} = {7EF92B20-2457-4E9A-AF09-610675F68F62}
 		{5BECB362-2B3C-454E-BA26-F3287B237223} = {458D4B81-3659-4CDC-82E6-F0AC7DA1383D}
-		{5FDF21B9-CFE1-4180-A903-A202BD8F2CDF} = {5EC7A540-5858-4C0A-A0CE-ABCB3D48AFEB}
+		{45F5AE68-6E31-478A-80D3-8A1E3881DDBB} = {6D41E71C-E6E0-4BE8-934C-6E6E88C3F8C7}
+		{7B3EBF81-F228-4F8B-AC17-5C83DAA8406A} = {6D41E71C-E6E0-4BE8-934C-6E6E88C3F8C7}
+		{353B6DBC-61C8-4FEF-8182-C5B36A3B4818} = {5EC7A540-5858-4C0A-A0CE-ABCB3D48AFEB}
+		{F5F81E7B-F1BF-4C3A-8D56-6D4A486D687C} = {353B6DBC-61C8-4FEF-8182-C5B36A3B4818}
+		{81095EE1-16FF-44A7-9550-B9989DD119BB} = {6D41E71C-E6E0-4BE8-934C-6E6E88C3F8C7}
 	EndGlobalSection
 EndGlobal

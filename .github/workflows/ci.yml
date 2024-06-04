@@ -1,0 +1,91 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '**/renovate.json'
+      - '.github/workflows/release.yaml'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '**/renovate.json'
+      - '.github/workflows/release.yaml'
+      - 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+  
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          show-progress: false
+      - name: NuGet Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: ${{ runner.os}}-nuget
+      - name: SonarCloud Packages Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar   
+      - name: SonarCloud Scanner Cache
+        id: cache-sonar-scanner
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner          
+      - name: Install Java SDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Install SonarCloud Scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/.sonar/scanner
+          dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/scanner          
+      - name: Test
+        run: |
+          ~/.sonar/scanner/dotnet-sonarscanner begin \
+            /k:"visus:addressvalidation.net" \
+            /o:"visus" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.cs.opencover.reportsPaths=${{ runner.temp }}/coverage.opencover.xml \
+            /d:sonar.host.url="https://sonarcloud.io"
+          
+          dotnet test -c release \
+            --logger:trx \
+            --results-directory ${{ runner.temp }}/TestResults \
+            -p:CollectCoverage=true \
+            -p:CoverletOutputFormat=opencover \
+            -p:CoverletOutput=${{ runner.temp }}/coverage.opencover.xml
+          
+          ~/.sonar/scanner/dotnet-sonarscanner end \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      - name: Test Results
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Test Results
+          path: ${{ runner.temp }}/TestResults/*.trx
+          reporter: dotnet-trx      
+          

@@ -1,20 +1,38 @@
 <Project>
     <PropertyGroup>
-        <Version>0.0.1</Version>
-        <Authors>Alan Brault</Authors>
-        <Copyright>Copyright 2024 Alan Brault. All Rights Reserved</Copyright>
+        <Authors>Visus Development Team</Authors>
+        <Copyright>Copyright (c) 2024 Visus Development Team</Copyright>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <IsTrimmable>false</IsTrimmable>
         <LangVersion>12</LangVersion>
-        <RepositoryUrl>https://gitlab.com/xaevik/addressvalidation.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://gitlab.com/xaevik/addressvalidation</PackageProjectUrl>
         <NeutralLanguage>en-US</NeutralLanguage>
+        <Nullable>enable</Nullable>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <Version>0.0.1</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType>embedded</DebugType>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://github.com/visus-io/addressvalidation.net</PackageProjectUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/visus-io/addressvalidation.net.git</RepositoryUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(CI)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <RestoreLockedMode>true</RestoreLockedMode>
     </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

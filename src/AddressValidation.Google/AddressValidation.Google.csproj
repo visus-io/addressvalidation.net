@@ -2,11 +2,25 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsTrimmable>true</IsTrimmable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AddressValidation.Abstractions\AddressValidation.Abstractions.csproj" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.Http"/>
+        <PackageReference Include="Microsoft.Extensions.Http.Polly"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AddressValidation\AddressValidation.csproj"/>
     </ItemGroup>
 
 </Project>
